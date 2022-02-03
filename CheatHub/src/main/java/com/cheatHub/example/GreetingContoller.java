@@ -9,7 +9,7 @@ public class GreetingContoller {
 	
 	@GetMapping("/")
 	public String greeting(Model model) {
-		model.addAttribute("name","calvo");
+		model.addAttribute("name","world");
 		return "index";
 	}
 }
