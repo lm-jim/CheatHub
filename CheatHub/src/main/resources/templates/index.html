@@ -1,18 +1,37 @@
 <html>
-<body>
 
+<head>
+	<title>CHEAT HUB</title>
+</head>
+
+<body>
 	<!-- Vamos a mostrar un valor dependiendo de lbooleano de la variable indicada en Greeting Controller -->
 	<!-- Caso en el que la variable es positiva, se indica con #, en este caso comprobaremos la variable hello -->
-	{{#hello}}
-	<p>Hello</p>
-	{{/hello}}
 	
-	<!-- En el caso de que sea negativo, se indica con ^ -->
-	{{^hello}}
-	<p>Good Bye</p>
-	{{/hello}}
+	<h1>CHEATHUB</h1>
+	<hr>
+	<form action = "category">
+		<p>Categorías
+		
+		</p>
+		<p>	<input type="submit" name= 'boton' value="Shooter">
+			<input type="submit" name= 'boton' value="Aventura">
+			<input type="submit" name= 'boton' value="Simulador">
+			<input type="submit" name= 'boton' value="Arcade">
+			<a href="category?boton=Ejemplo">Enlace</a>
+		</p>
+		
+	</form>
+	<hr>
+	<form action = "search">
+		<p> Buscar videojuego: </p>
+		<input type = 'text' name = 'userName'/>
+		<input type='checkbox' name='filtro' value='trucos'>Filtrar Trucos
+		<input type='checkbox' name='filtro' value='bugs'>Filtrar Bugs
+		<input type = 'submit' name = 'Buscar'/>
+	</form>
+	<hr>
 	
-	<!-- Lo que va entre las llaver, es la etiqueta por la que se va a cambiar el texto que se indique en el fichero GreetingContoller.java -->
-	<p>Hello {{name}}. </p>
+	
 </body>
 </html>
