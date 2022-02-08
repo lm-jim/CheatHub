@@ -4,13 +4,13 @@ CheatHub es una página web colaborativa dónde podrás encontrar trucos de tus 
 
 ## FUNCIONALIDADES PÚBLICAS
 -	Buscar un videojuego según categoría o buscador.
--	Ver trucos y bugs.
--	Ver comentarios de trucos y bugs.
+-	Ver publicaciones.
+-	Ver comentarios de publicaciones.
 
 ## FUNCIONALIDADES PRIVADAS
 - Publicar un truco o bug.
-- Comentar trucos y bugs.
-- Puntuar trucos y bugs.
+- Comentar publicaciones.
+- Puntuar publicaciones.
 - Editar o eliminar tus publicaciones.
 - Asignarte una foto de perfil.
 - Editar datos de tu perfil.
@@ -19,9 +19,9 @@ CheatHub es una página web colaborativa dónde podrás encontrar trucos de tus 
 ## ENTIDADES
 - Usuario: Publicará trucos, bugs, comentarios o votos. 
 - Categoría: Contendrá N juegos dependiendo de su género o plataforma.
-- Videojuego: Contendrá distintos trucos o bugs.
-- Truco: Contenido, consejos o códigos que pueden ayudarte con un determinado videojuego.
-- Bug: Fallo en el videojuego a destacar.
+- Videojuego: Contendrá distintas publicaciones sobre el mismo.
+- Publicación: Truco o bug. Contenido, consejos o códigos que pueden ayudarte con un determinado videojuego.
+- Comentario: Publicado por usuarios en una publicación.
 
 ## SERVICIOS WEB
 - Publicar o editar publicaciones.
