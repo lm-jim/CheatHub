@@ -1,5 +1,8 @@
 package com.cheatHub.example;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,16 +16,13 @@ public class GreetingContoller {
 
 	@RequestMapping("/search")
 	public String greeting(Model model, @RequestParam String userName,String filtro) {
-		/*Los atributos de esta función corresponden a:
-		 1: "name": que corresponde al nombre de la plantilla del fichero html. ->index.html->{{name}}
-		 2: "wordl": Lo que sustituimos en dicha palabra
-		 */
+		// EL @RequestParam recogen los valores del parámetro username
 		model.addAttribute("name",userName);
 		if(filtro!=null) {
 			model.addAttribute("fill",filtro);
 		}
 		else {
-			model.addAttribute("fill","ninguno");
+			model.addAttribute("fill","ningún");
 		}
 		
 		/*Devolvemos como cadena de texto el nombre del archivo html en el que se encuentra la plantilla
@@ -33,10 +33,7 @@ public class GreetingContoller {
 	
 	@RequestMapping("/category")
 	public String greetingCategory(Model model, @RequestParam String boton) {
-		/*Los atributos de esta función corresponden a:
-		 1: "name": que corresponde al nombre de la plantilla del fichero html. ->index.html->{{name}}
-		 2: "wordl": Lo que sustituimos en dicha palabra
-		 */
+		
 			model.addAttribute("fill",boton);
 		
 		/*Devolvemos como cadena de texto el nombre del archivo html en el que se encuentra la plantilla
@@ -50,4 +47,6 @@ public class GreetingContoller {
 		
 		return "index";
 	}
+	
+	
 }
