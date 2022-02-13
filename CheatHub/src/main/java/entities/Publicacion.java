@@ -7,6 +7,7 @@ import javax.persistence.OneToOne;
 import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
+@Entity
 public class Publicacion {
 
 	@Id
@@ -22,7 +23,9 @@ public class Publicacion {
 	
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date fechaPublicacion;
-
+	
+	public Publicacion() {}
+	
 	public Publicacion(int id_Publicacion, String titulo, String descripcion, Boolean tipoPublicacion, int puntuacion, Usuario username, int id_Videojuego, Date fechaPublicacion) {
 		this.id_Publicacion = id_Publicacion;
 		this.titulo = titulo;
