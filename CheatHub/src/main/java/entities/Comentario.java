@@ -3,7 +3,7 @@ package entities;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+
 
 @Entity
 public class Comentario {
@@ -13,15 +13,15 @@ public class Comentario {
 	
 	private String contenidoComentario;
 	
-	@OneToOne
-	private String usuario;
+	@ManyToOne
+	private Usuario usuario;
 	
 	@ManyToOne
-	private String publicacion;
+	private Publicacion publicacion;
 	
 	protected Comentario() {}
 
-	public Comentario(String idComentario, String contenidoComentario, String usuario, String publicacion) {
+	public Comentario(String idComentario, String contenidoComentario, Usuario usuario, Publicacion publicacion) {
 		this.idComentario = idComentario;
 		this.contenidoComentario = contenidoComentario;
 		this.usuario = usuario;
@@ -44,19 +44,19 @@ public class Comentario {
 		this.contenidoComentario = contenidoComentario;
 	}
 
-	public String getUsuario() {
+	public Usuario getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(String usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 
-	public String getPublicacion() {
+	public Publicacion getPublicacion() {
 		return publicacion;
 	}
 
-	public void setPublicacion(String publicacion) {
+	public void setPublicacion(Publicacion publicacion) {
 		this.publicacion = publicacion;
 	}
 	

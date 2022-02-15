@@ -2,9 +2,13 @@ package entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -14,19 +18,22 @@ public class Publicacion {
 	private int id_Publicacion;
 	private String titulo;
 	private String descripcion;
-	private Boolean tipoPublicacion; //·False=Truco  ·True=Bug
+	private boolean tipoPublicacion; //·False=Truco  ·True=Bug
 	private int puntuacion;
-	@OneToOne
+	@ManyToOne
 	private Usuario username;
-	//@OneToOne Cuando esté creada la clase videojuego. Cambiar tmb tipo por videojuego.
-	private int id_Videojuego;
+	@ManyToOne 
+	private Videojuego id_Videojuego;
 	
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date fechaPublicacion;
 	
+	@OneToMany
+	private List<Comentario> listaComentarios;
+	
 	public Publicacion() {}
 	
-	public Publicacion(int id_Publicacion, String titulo, String descripcion, Boolean tipoPublicacion, int puntuacion, Usuario username, int id_Videojuego, Date fechaPublicacion) {
+	public Publicacion(int id_Publicacion, String titulo, String descripcion, Boolean tipoPublicacion, int puntuacion, Usuario username, Videojuego id_Videojuego, Date fechaPublicacion) {
 		this.id_Publicacion = id_Publicacion;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
@@ -35,9 +42,10 @@ public class Publicacion {
 		this.username = username;
 		this.id_Videojuego = id_Videojuego;
 		this.fechaPublicacion = fechaPublicacion;
+		this.listaComentarios= new ArrayList<>();
 	}
 	
-	public Publicacion(int id_Publicacion, String titulo, String descripcion, Boolean tipoPublicacion, int puntuacion, Usuario username, int id_Videojuego) {
+	public Publicacion(int id_Publicacion, String titulo, String descripcion, Boolean tipoPublicacion, int puntuacion, Usuario username, Videojuego id_Videojuego) {
 		this(id_Publicacion, titulo,  descripcion,  tipoPublicacion,  puntuacion,  username,  id_Videojuego,new Date());
 	}
 
@@ -89,11 +97,11 @@ public class Publicacion {
 		this.username = username;
 	}
 
-	public int getId_Videojuego() {
+	public Videojuego getId_Videojuego() {
 		return id_Videojuego;
 	}
 
-	public void setId_Videojuego(int id_Videojuego) {
+	public void setId_Videojuego(Videojuego id_Videojuego) {
 		this.id_Videojuego = id_Videojuego;
 	}
 
@@ -104,7 +112,27 @@ public class Publicacion {
 	public void setFechaPublicacion(Date fechaPublicacion) {
 		this.fechaPublicacion = fechaPublicacion;
 	}
+		
+	public List<Comentario> getListaComentarios() {
+		return listaComentarios;
+	}
+
+	public void setListaComentarios(List<Comentario> listaComentarios) {
+		this.listaComentarios = listaComentarios;
+	}
+
+	public void addComentario(Comentario comentario) {
+		if(!listaComentarios.contains(comentario))
+			listaComentarios.add(comentario);
+	}
 	
+	public void votoMas() {
+		this.puntuacion++;
+	}
+	
+	public void votoMenos() {
+		this.puntuacion--;
+	}
 	
 	
 	

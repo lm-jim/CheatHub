@@ -1,9 +1,12 @@
 package entities;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,12 +27,20 @@ public class Usuario {
 	private String nombreReal;
 	private String descripcion;
 	
+	@OneToMany
+	private List<Comentario> listaComentarios;
+	
+	@OneToMany
+	private List<Publicacion> listaPublicaciones;
+	
 	public Usuario() {}
 	
 	public Usuario(String nombreUsuario, String contraseña) {
 		this.nombreUsuario = nombreUsuario;
 		this.contraseña = contraseña;
 		this.fechaRegistro = new Date();
+		this.listaComentarios=new ArrayList<>();
+		this.listaPublicaciones=new ArrayList<>();
 	}
 	
 	public String getAvatar() {
@@ -87,5 +98,30 @@ public class Usuario {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
+	public List<Comentario> getListaComentarios() {
+		return listaComentarios;
+	}
+
+	public void setListaComentarios(List<Comentario> listaComentarios) {
+		this.listaComentarios = listaComentarios;
+	}
+
+	public List<Publicacion> getListaPublicaciones() {
+		return listaPublicaciones;
+	}
+
+	public void setListaPublicaciones(List<Publicacion> listaPublicaciones) {
+		this.listaPublicaciones = listaPublicaciones;
+	}
 	
+	public void addComentario(Comentario comentario) {
+		if(!listaComentarios.contains(comentario))
+			listaComentarios.add(comentario);
+	}
+	
+	public void addPublicacion(Publicacion publicacion) {
+		if(!listaPublicaciones.contains(publicacion))
+			listaPublicaciones.add(publicacion);
+	}
 }
