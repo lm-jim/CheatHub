@@ -6,7 +6,7 @@ import entities.Categoria;
 import entities.Videojuego;
 import java.util.List;
 
-public interface RepositorioVideojuego extends JpaRepository<Videojuego,Long>{
+public interface RepositorioVideojuego extends JpaRepository<Videojuego,String>{
 	List<Videojuego> findByNombreVideojuego(String nombreVideojuego);
 	
 	List<Videojuego> findByCategoria(Categoria nombreCategoria);

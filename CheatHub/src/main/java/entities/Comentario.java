@@ -9,7 +9,8 @@ import javax.persistence.ManyToOne;
 public class Comentario {
 	
 	@Id
-	private String idComentario;
+	
+	private int idComentario;
 	
 	private String contenidoComentario;
 	
@@ -21,18 +22,18 @@ public class Comentario {
 	
 	protected Comentario() {}
 
-	public Comentario(String idComentario, String contenidoComentario, Usuario usuario, Publicacion publicacion) {
+	public Comentario(int idComentario, String contenidoComentario, Usuario usuario, Publicacion publicacion) {
 		this.idComentario = idComentario;
 		this.contenidoComentario = contenidoComentario;
 		this.usuario = usuario;
 		this.publicacion = publicacion;
 	}
 
-	public String getIdComentario() {
+	public int getIdComentario() {
 		return idComentario;
 	}
 
-	public void setIdComentario(String idComentario) {
+	public void setIdComentario(int idComentario) {
 		this.idComentario = idComentario;
 	}
 
