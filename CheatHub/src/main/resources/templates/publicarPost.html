@@ -1,0 +1,47 @@
+<html>
+
+<head>
+	<title>CHEAT HUB</title>
+</head>
+
+<body>
+	
+	<h1>CHEATHUB</h1>
+	<hr>
+	<!--/publicacion/{idPublicacion} -->
+	<form action = "/publicacion/1">
+		<p> TITULO </p>
+		<input type = 'text' name = 'titulo'/>
+		<p> DESCRIPCIÓN </p>
+		<textarea name="publicacion" rows="10" cols="40">Describe aquí tu publicación</textarea>
+		
+		<p> TIPO PUBLICACIÓN </p>
+		<p>
+		Bug<input type="radio" id="contactChoice1" name="tipo" value="bug">
+		Truco<input type="radio" id="contactChoice2" name="tipo" value="truco">
+		</p>
+        
+        <!-- HABRÍA QUE CAMBIAR ESTO Y CARGARLOS MEDIANTE UNA LISTA, QUE OBTENGA LOS DATOS DE LA BD-->
+        <p> SELECCIONAR JUEGO </p>
+        <select name="juego">
+        	<option value=""></option> 
+   			<option value="Cod">Cod</option> 
+			<option value="Minecraft">Minecraft</option> 
+			<option value="Sims">Sims</option>
+			<option value="Pathogen">Pathogen</option> 
+			<option value="Battlefield">Battlefield</option> 
+			<option value="GTA">GTA</option> 
+		</select>
+		<p> Nuevo juego (Introdúzcalo sólo si no aparece tu juego en la lista de arriba)
+		<input type = 'text'' name = 'nuevoJuego'/>
+		</p>
+		<br>
+		<br>
+		
+		<input type = 'submit' name = 'nuevoPost' value='Publicar'/>
+	</form>
+	<hr>
+	
+
+</body>
+</html>

@@ -38,7 +38,10 @@ public class CheatHubApplication {
 	{
 		Categoria cAccion = new Categoria("Estrategia");
 		repositorioCategorias.save(cAccion);
-		
+		/*
+		Categoria cSim = new Categoria("Simulador");
+		repositorioCategorias.save(cSim);
+		*/
 		Videojuego videoj = new Videojuego("Pathogen", "Pathogen es un juego en el que manejas o te defiendes una plaga que extingue a la humanidad.", cAccion);
 		Usuario user = new Usuario("Sirio120", "12345");
 		Publicacion publi = new Publicacion("Pathogen juegazo", "En realidad no, es una caca, no jugaria. 0/10", false, -46, user, videoj);

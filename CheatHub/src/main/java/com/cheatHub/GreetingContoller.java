@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -46,6 +47,31 @@ public class GreetingContoller {
 	public String greetingCond(Model model) {
 		
 		return "index";
+	}
+	
+	@GetMapping("/nuevaPublicacion")
+	public String greetingPublicacion(Model model) {
+		return "publicarPost";
+	}
+	
+	//("/publicacion/{idPublicacion}")
+	@GetMapping("/publicacion/{idPublicacion}")
+	public String greetingPublicacion(Model model,@PathVariable int idPublicacion, @RequestParam String titulo, String publicacion,String juego,String tipo, String nuevoJuego) {
+		if(titulo=="" || publicacion==""||tipo==null || (juego==""&&nuevoJuego=="")) {
+			return "publicarPost";
+		}
+		model.addAttribute("titulo",titulo);
+		if(juego=="") {
+			//Añadimos el nuevo juego en la base de datos.
+			juego=nuevoJuego;
+		}
+		model.addAttribute("juego",juego);
+		model.addAttribute("publicacion",publicacion);
+		model.addAttribute("tipo",tipo);
+		//Cambiar al usuario que publica
+		model.addAttribute("user","Pepito");
+		
+		return "publicacion";
 	}
 	
 	

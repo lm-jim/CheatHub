@@ -25,6 +25,9 @@ public class UserController {
 	@GetMapping("/user")
 	public String userPage(Model model, @RequestParam String userName) {
 		//Cargaríamos los datos de la BD del nombre de usuario correspondiente
+				if(userName=="") {
+					return "login"; //Deberiamos de devolver a la página de la que venimos
+				}
 		model.addAttribute("usuario",userName);
 		model.addAttribute("nombre","Pepito");
 		model.addAttribute("fechaNacimiento","05/09/99");
