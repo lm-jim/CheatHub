@@ -1,6 +1,9 @@
-package entities;
+package com.cheatHub.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -15,46 +18,43 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Publicacion {
 
 	@Id
-	private int id_Publicacion;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int idPublicacion;
 	private String titulo;
 	private String descripcion;
 	private boolean tipoPublicacion; //·False=Truco  ·True=Bug
 	private int puntuacion;
+	
 	@ManyToOne
-	private Usuario username;
-	@ManyToOne 
-	private Videojuego id_Videojuego;
+	private Usuario usuario;
+	@ManyToOne
+	private Videojuego videojuego;
 	
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date fechaPublicacion;
 	
-	@OneToMany
+	@OneToMany(mappedBy="publicacion", cascade=CascadeType.ALL)
 	private List<Comentario> listaComentarios;
 	
 	public Publicacion() {}
 	
-	public Publicacion(int id_Publicacion, String titulo, String descripcion, Boolean tipoPublicacion, int puntuacion, Usuario username, Videojuego id_Videojuego, Date fechaPublicacion) {
-		this.id_Publicacion = id_Publicacion;
+	public Publicacion(String titulo, String descripcion, Boolean tipoPublicacion, int puntuacion, Usuario username, Videojuego videojuego) {
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.tipoPublicacion = tipoPublicacion;
 		this.puntuacion = puntuacion;
-		this.username = username;
-		this.id_Videojuego = id_Videojuego;
-		this.fechaPublicacion = fechaPublicacion;
+		this.usuario = username;
+		this.videojuego = videojuego;
 		this.listaComentarios= new ArrayList<>();
-	}
-	
-	public Publicacion(int id_Publicacion, String titulo, String descripcion, Boolean tipoPublicacion, int puntuacion, Usuario username, Videojuego id_Videojuego) {
-		this(id_Publicacion, titulo,  descripcion,  tipoPublicacion,  puntuacion,  username,  id_Videojuego,new Date());
+		this.fechaPublicacion = new Date();
 	}
 
-	public int getId_Publicacion() {
-		return id_Publicacion;
+	public int getPublicacion() {
+		return idPublicacion;
 	}
 
-	public void setId_Publicacion(int id_Publicacion) {
-		this.id_Publicacion = id_Publicacion;
+	public void setPublicacion(int idPublicacion) {
+		this.idPublicacion = idPublicacion;
 	}
 
 	public String getTitulo() {
@@ -90,19 +90,19 @@ public class Publicacion {
 	}
 
 	public Usuario getUsername() {
-		return username;
+		return usuario;
 	}
 
 	public void setUsername(Usuario username) {
-		this.username = username;
+		this.usuario = username;
 	}
 
-	public Videojuego getId_Videojuego() {
-		return id_Videojuego;
+	public Videojuego getVideojuego() {
+		return videojuego;
 	}
 
-	public void setId_Videojuego(Videojuego id_Videojuego) {
-		this.id_Videojuego = id_Videojuego;
+	public void setVideojuego(Videojuego videojuego) {
+		this.videojuego = videojuego;
 	}
 
 	public Date getFechaPublicacion() {

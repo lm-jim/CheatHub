@@ -1,9 +1,9 @@
-package entities;
-
+package com.cheatHub.entities;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -27,10 +27,10 @@ public class Usuario {
 	private String nombreReal;
 	private String descripcion;
 	
-	@OneToMany
+	@OneToMany(mappedBy="usuario",cascade=CascadeType.ALL)
 	private List<Comentario> listaComentarios;
 	
-	@OneToMany
+	@OneToMany(mappedBy="usuario",cascade=CascadeType.ALL)
 	private List<Publicacion> listaPublicaciones;
 	
 	public Usuario() {}

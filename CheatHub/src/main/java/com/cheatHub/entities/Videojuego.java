@@ -1,8 +1,9 @@
-package entities;
+package com.cheatHub.entities;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -17,18 +18,18 @@ public class Videojuego {
 	
 	private String descripcion;
 	
-	@ManyToOne
-	private Categoria nombreCategoria;
+	@ManyToOne(cascade=CascadeType.ALL)
+	private Categoria categoria;
 	
-	@OneToMany
+	@OneToMany(mappedBy="videojuego")
 	private List<Publicacion> ListaPublicaciones;
 	
 	public Videojuego() {}
 	
-	public Videojuego(String nombreVideoJuego, String descripcion, Categoria nombreCategoria) {
+	public Videojuego(String nombreVideoJuego, String descripcion, Categoria categoria) {
 		this.nombreVideojuego = nombreVideoJuego;
 		this.descripcion = descripcion;
-		this.nombreCategoria = nombreCategoria;
+		this.categoria = categoria;
 		this.ListaPublicaciones=new ArrayList<>();
 	}
 
@@ -48,15 +49,13 @@ public class Videojuego {
 		this.descripcion = descripcion;
 	}
 
-	public Categoria getNombreCategoria() {
-		return nombreCategoria;
+	public Categoria getCategoria() {
+		return categoria;
 	}
 
-	public void setNombreCategoria(Categoria nombreCategoria) {
-		this.nombreCategoria = nombreCategoria;
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
-
-	
 
 	public List<Publicacion> getListaPublicaciones() {
 		return ListaPublicaciones;

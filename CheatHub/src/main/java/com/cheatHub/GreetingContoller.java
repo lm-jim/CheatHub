@@ -1,4 +1,4 @@
-package com.cheatHub.example;
+package com.cheatHub;
 
 import java.util.ArrayList;
 import java.util.List;

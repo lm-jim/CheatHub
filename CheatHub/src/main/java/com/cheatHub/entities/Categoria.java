@@ -1,8 +1,10 @@
-package entities;
+package com.cheatHub.entities;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -11,7 +13,7 @@ public class Categoria {
 	@Id
 	private String nombreCategoria;
 	
-	@OneToMany
+	@OneToMany(mappedBy="categoria")
 	private List<Videojuego> listaVideojuegos;
 	
 	public Categoria() {}
@@ -36,9 +38,9 @@ public class Categoria {
 	public void setListaVideojuegos(List<Videojuego> listaVideojuegos) {
 		this.listaVideojuegos = listaVideojuegos;
 	}
-	
+	/*
 	public void addVideojuego(Videojuego game) {
 		if(!listaVideojuegos.contains(game))
 			listaVideojuegos.add(game);
-	}
+	}*/
 }
