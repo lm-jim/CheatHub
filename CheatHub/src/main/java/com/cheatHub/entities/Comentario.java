@@ -62,6 +62,11 @@ public class Comentario {
 		this.publicacion = publicacion;
 	}
 	
+	@Override
+	public String toString() {
+		return contenidoComentario;
+	}
+	
 	
 	
 	

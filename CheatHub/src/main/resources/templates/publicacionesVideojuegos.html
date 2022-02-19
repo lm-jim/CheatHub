@@ -1,0 +1,18 @@
+<html>
+<head>
+	<title>CHEAT HUB</title>
+</head>
+<body>
+ <p>Buscando todas las publicaciones del videojuego: {{fill}}</p>
+ <hr>
+ 	<form action = "publicacion">
+		<ul>
+			{{#publicaciones}}
+			<li>{{titulo}}  <button type="submit" name="boton" value="{{idPublicacion}}">Ir</button> </li>
+			{{/publicaciones}}
+		</ul>
+ 	</form>
+	
+ 
+</body>
+</html>

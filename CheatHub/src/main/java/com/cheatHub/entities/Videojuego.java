@@ -71,6 +71,10 @@ public class Videojuego {
 			ListaPublicaciones.add(publicacion);
 	}
 	
+	@Override
+	public String toString() {
+		return nombreVideojuego;
+	}
 	
 	
 	

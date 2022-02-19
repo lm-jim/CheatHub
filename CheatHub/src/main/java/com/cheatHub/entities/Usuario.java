@@ -43,6 +43,17 @@ public class Usuario {
 		this.listaPublicaciones=new ArrayList<>();
 	}
 	
+	public Usuario(String nombreUsuario,String contraseña, String nombreReal,String descripcion,Date fechaNacimiento) {
+		this.nombreUsuario = nombreUsuario;
+		this.contraseña = contraseña;
+		this.fechaRegistro = new Date();
+		this.listaComentarios=new ArrayList<>();
+		this.listaPublicaciones=new ArrayList<>();
+		this.nombreReal=nombreReal;
+		this.descripcion=descripcion;
+		this.fechaNacimiento=fechaNacimiento;
+	}
+	
 	public String getAvatar() {
 		return avatar;
 	}
@@ -123,5 +134,10 @@ public class Usuario {
 	public void addPublicacion(Publicacion publicacion) {
 		if(!listaPublicaciones.contains(publicacion))
 			listaPublicaciones.add(publicacion);
+	}
+	
+	@Override
+	public String toString() {
+		return nombreUsuario;
 	}
 }

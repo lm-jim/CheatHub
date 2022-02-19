@@ -38,9 +38,11 @@ public class Categoria {
 	public void setListaVideojuegos(List<Videojuego> listaVideojuegos) {
 		this.listaVideojuegos = listaVideojuegos;
 	}
-	/*
-	public void addVideojuego(Videojuego game) {
-		if(!listaVideojuegos.contains(game))
-			listaVideojuegos.add(game);
-	}*/
+
+	@Override
+	public String toString() {
+		return nombreCategoria;
+	}
+	
+	
 }

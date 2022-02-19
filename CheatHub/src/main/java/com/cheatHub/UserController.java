@@ -1,4 +1,5 @@
 package com.cheatHub;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,15 +24,35 @@ public class UserController {
 	}
 	
 	@GetMapping("/user")
-	public String userPage(Model model, @RequestParam String userName) {
-		//Cargaríamos los datos de la BD del nombre de usuario correspondiente
-				if(userName=="") {
-					return "login"; //Deberiamos de devolver a la página de la que venimos
+	public String userPage(Model model, @RequestParam String userName, String password,String birthdate,String realName,String descryption,String url,String boton) {
+				if(userName=="" || password=="") {
+					if(boton.equals("Iniciar sesión"))
+						return "login"; //Deberiamos de devolver a la página de la que venimos
+					else
+						return "createaccount";
 				}
+				
+				//Deberiamos de ver si venimos de login o create account, y cargamos de la Bd o guardamos el usuario en la BD.
+				
+				//Cargaríamos los datos de la BD del nombre de usuario correspondiente
 		model.addAttribute("usuario",userName);
-		model.addAttribute("nombre","Pepito");
-		model.addAttribute("fechaNacimiento","05/09/99");
-		model.addAttribute("Descripcion","Me gustan los juegos retro");
+		if(realName!=null)
+			model.addAttribute("nombre",realName);
+		else 
+			model.addAttribute("nombre","-");
+		if(birthdate!=null)
+		model.addAttribute("fechaNacimiento",birthdate);
+		else 
+			model.addAttribute("fechaNacimiento","-");
+		if(descryption!=null)
+		model.addAttribute("Descripcion",descryption);
+		else 
+			model.addAttribute("Descripcion","-");
+		if(url!=null)
+			model.addAttribute("imagen",url);
+			else 
+				model.addAttribute("imagen","");
+		
 		model.addAttribute("Publicaciones","Ninguna");
 		
 		return "user";

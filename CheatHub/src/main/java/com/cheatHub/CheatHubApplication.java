@@ -48,7 +48,7 @@ public class CheatHubApplication {
 		Categoria cSim = new Categoria("Simulador");
 		repositorioCategorias.save(cSim);
 		*/
-		Videojuego vPathogen = new Videojuego("Pathogenººººººººº", "Pathogen es un juego en el que manejas o te defiendes una plaga que extingue a la humanidad.", cAccion);
+		Videojuego vPathogen = new Videojuego("Pathogen", "Pathogen es un juego en el que manejas o te defiendes una plaga que extingue a la humanidad.", cAccion);
 		Videojuego vSims = new Videojuego("Sims 3", "Los Sims es un juego de simulación en el que controlas de vida de unos personajes que has creado.", cSimulacion);
 		Videojuego vValorant = new Videojuego("Valorant", "Valorant es un shooter competitivo de 5vs5.", cShooter);
 		Videojuego vGTA = new Videojuego("Grand Theft Auto San Andreas", "GTA San Andreas es un juego de mundo  abierto donde encarnarás a CJ, "

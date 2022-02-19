@@ -15,4 +15,6 @@ public interface RepositorioPublicacion extends JpaRepository<Publicacion,Intege
 	
 	List<Publicacion> findByVideojuego(Videojuego videojuego);
 	
+	List<Publicacion> findByTipoPublicacionAndVideojuego(boolean tipoPublicacion,Videojuego videojuego);
+	
 }

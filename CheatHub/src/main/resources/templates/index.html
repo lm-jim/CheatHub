@@ -12,20 +12,31 @@
 	<hr>
 	<form action = "category">
 		<p>Categorías
+		</p>
 		
+		<p>
+		<ul>
+			{{#categorias}}
+			<input type="submit" name= 'boton' value={{.}}>
+			{{/categorias}}
+		</ul>			
 		</p>
-		<p>	<input type="submit" name= 'boton' value="Shooter">
-			<input type="submit" name= 'boton' value="Aventura">
+		<!-- <input type="submit" name= 'boton' value="Aventura">
 			<input type="submit" name= 'boton' value="Simulador">
-			<input type="submit" name= 'boton' value="Arcade">
-			
-		</p>
+			<input type="submit" name= 'boton' value="Arcade"> -->
 		
 	</form>
 	<hr>
 	<form action = "search">
 		<p> Buscar videojuego: </p>
-		<input type = 'text' name = 'userName'/>
+		<select name="juego">
+        	<option value=""></option>
+        	<ul>
+				{{#videojuegos}}
+					<option value="{{nombreVideojuego}}">{{nombreVideojuego}}</option> 
+				{{/videojuegos}}
+			</ul>
+		</select>
 		<input type='checkbox' name='filtro' value='trucos'>Filtrar Trucos
 		<input type='checkbox' name='filtro' value='bugs'>Filtrar Bugs
 		<input type = 'submit' name = 'Buscar' value='Buscar'/>
@@ -41,7 +52,7 @@
 	</form>
 	</p>
 	<form action = "nuevaPublicacion">
-		<input type = 'submit' name = 'Nueva Publicación' value='nueva'/>
+		<input type = 'submit' name = 'Nueva Publicación' value='nueva publicacion'/>
 	</form>
 	
 </body>

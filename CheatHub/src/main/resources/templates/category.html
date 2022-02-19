@@ -1,5 +1,19 @@
 <html>
+<head>
+	<title>CHEAT HUB</title>
+</head>
 <body>
  <p>Buscando en la categoría: {{fill}}</p>
+ <hr>
+ <p>
+ 	<form action = "juego">
+		<ul>
+			{{#juegos}}
+			<input type="submit" name= 'boton' value={{nombreVideojuego}}><br>
+			{{/juegos}}
+		</ul>
+ 	</form>
+	
+ 
 </body>
 </html>

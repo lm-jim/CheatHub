@@ -134,6 +134,11 @@ public class Publicacion {
 		this.puntuacion--;
 	}
 	
+	@Override
+	public String toString() {
+		return titulo;
+	}
+	
 	
 	
 }
