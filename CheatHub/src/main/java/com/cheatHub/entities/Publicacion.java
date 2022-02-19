@@ -38,11 +38,11 @@ public class Publicacion {
 	
 	public Publicacion() {}
 	
-	public Publicacion(String titulo, String descripcion, Boolean tipoPublicacion, int puntuacion, Usuario username, Videojuego videojuego) {
+	public Publicacion(String titulo, String descripcion, Boolean tipoPublicacion, Usuario username, Videojuego videojuego) {
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.tipoPublicacion = tipoPublicacion;
-		this.puntuacion = puntuacion;
+		this.puntuacion = 0;
 		this.usuario = username;
 		this.videojuego = videojuego;
 		this.listaComentarios= new ArrayList<>();
