@@ -1,0 +1,22 @@
+<html>
+<head>
+	<title>CHEAT HUB</title>
+</head>
+<body>
+	<h1>CHEATHUB</h1>
+	<hr>
+	<p>Buscando usuarios por '{{textoIntroducido}}': </p>
+	<hr>
+	<ul>
+		{{#usuariosEncontrados}}
+		<li>
+			<h4><img src={{avatar}} width="32" height="32">    {{nombreUsuario}}</h4>
+			<a href="user/{{nombreUsuario}}">Visitar perfil</a> 
+			<hr>
+		</li>
+		{{/usuariosEncontrados}}
+	</ul>
+	
+ 
+</body>
+</html>

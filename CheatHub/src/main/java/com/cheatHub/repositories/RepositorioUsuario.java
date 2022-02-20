@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.cheatHub.entities.Usuario;
 @Repository
-public interface RepositorioUsuario extends JpaRepository<Usuario,Long>{
+public interface RepositorioUsuario extends JpaRepository<Usuario,String>{
 	List<Usuario> findByNombreUsuario(String nombreUsuario);
 }

@@ -41,9 +41,10 @@ public class Usuario {
 		this.fechaRegistro = new Date();
 		this.listaComentarios=new ArrayList<>();
 		this.listaPublicaciones=new ArrayList<>();
+		this.avatar = "https://www.royalunibrew.com/wp-content/uploads/2021/07/blank-profile-picture-973460_640.png";
 	}
 	
-	public Usuario(String nombreUsuario,String contraseña, String nombreReal,String descripcion,Date fechaNacimiento) {
+	public Usuario(String nombreUsuario,String contraseña, String nombreReal,String descripcion,Date fechaNacimiento, String avatar) {
 		this.nombreUsuario = nombreUsuario;
 		this.contraseña = contraseña;
 		this.fechaRegistro = new Date();
@@ -52,6 +53,7 @@ public class Usuario {
 		this.nombreReal=nombreReal;
 		this.descripcion=descripcion;
 		this.fechaNacimiento=fechaNacimiento;
+		this.avatar = avatar;
 	}
 	
 	public String getAvatar() {
