@@ -8,7 +8,7 @@ import com.cheatHub.entities.Videojuego;
 
 import java.util.List;
 @Repository
-public interface RepositorioVideojuego extends JpaRepository<Videojuego,Long>{
+public interface RepositorioVideojuego extends JpaRepository<Videojuego,String>{
 	List<Videojuego> findByNombreVideojuego(String nombreVideojuego);
 	
 	List<Videojuego> findByCategoria(Categoria categoria);

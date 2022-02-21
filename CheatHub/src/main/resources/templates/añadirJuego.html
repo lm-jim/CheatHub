@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CHEAT HUB</title>
+	<link  type="text/css" rel="stylesheet" href="css/estilo.css"/>
+</head>
+
+<body>
+	
+	<h1>CHEATHUB</h1>
+	<hr>
+    <form  action = "/añadirVideojuego">
+		<p> Nombre Juego </p>
+		<input type = 'text' name = 'nombreVideojuego'/>
+		<p> DESCRIPCIÓN </p>
+		<textarea name="descripcionVideojuego" rows="10" cols="40">Describe aquí el juego que quieres añadir</textarea>
+		
+		<p> Buscar categoria: </p>
+		<select name="categoriaVideojuego">
+        	<option value=""></option>
+        	<ul>
+				{{#categoria}}
+					<option value="{{nombreCategoria}}">{{nombreCategoria}}</option> 
+				{{/categoria}}
+			</ul>
+		</select>
+    
+		<br>
+		
+		<input type = 'submit' name = 'boton' value='AñadirJuego'/>
+		
+	</form>
+	
+</body>
+</html>

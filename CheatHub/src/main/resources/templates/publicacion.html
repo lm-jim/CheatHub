@@ -1,5 +1,8 @@
+<!DOCTYPE html>
+<html>
 <head>
 	<title>CHEAT HUB</title>
+	<link  type="text/css" rel="stylesheet" href="css/estilo.css"/>
 </head>
 
 <body>
@@ -11,13 +14,22 @@
     <br>
     <h4>{{publicacion}}</h4>
     <br>
-    <h4>Tipo: {{tipo}}		Publicado por: {{user}}</h4>
+    <h4>Tipo:  {{tipo}}</h4>		
     <br>
+    <h4>Publicado por: {{user}}</h4>
     <hr>
 	<p>COMENTARIOS<p>
-	<!-- LISTA DE COMENTARIOS-->
+	<ul class="comentario">
+			{{#comentarios}}
+			<li class="usuarioComentario">{{usuario}} </li>
+			<li class="contenidoComentario">{{.}} </li>
+			{{/comentarios}}
+		</ul>
 	<br><br><br>
 	<form action = "/publicacion/1">
 	<p> NUEVO COMENTARIO </p>
 		<input type = 'text' name = 'comentario'/>
 	</form>
+	
+</body>
+</html>

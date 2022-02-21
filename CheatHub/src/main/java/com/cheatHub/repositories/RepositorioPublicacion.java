@@ -13,8 +13,10 @@ public interface RepositorioPublicacion extends JpaRepository<Publicacion,Intege
 	
 	List<Publicacion> findByTipoPublicacion(boolean tipoPublicacion);
 	
-	List<Publicacion> findByVideojuego(Videojuego videojuego);
+	List<Publicacion> findByVideojuego(Videojuego videojuego);	
 	
 	List<Publicacion> findByTipoPublicacionAndVideojuego(boolean tipoPublicacion,Videojuego videojuego);
+	
+	List<Publicacion> findAllByOrderByPuntuacion();
 	
 }

@@ -1,6 +1,6 @@
 package com.cheatHub;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,18 +8,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cheatHub.entities.Categoria;
 import com.cheatHub.entities.Publicacion;
+import com.cheatHub.entities.Usuario;
 import com.cheatHub.entities.Videojuego;
 import com.cheatHub.repositories.RepositorioCategoria;
+import com.cheatHub.repositories.RepositorioComentario;
 import com.cheatHub.repositories.RepositorioPublicacion;
 import com.cheatHub.repositories.RepositorioVideojuego;
 
 @Controller
-public class GreetingContoller {
+public class MainContoller {
 
 	private Object filtro;
 	@Autowired
@@ -28,6 +31,8 @@ public class GreetingContoller {
 	private RepositorioVideojuego repVideojuego;
 	@Autowired
 	private RepositorioPublicacion repPublicacion;
+	@Autowired
+	private RepositorioComentario repComentario;
 
 	@RequestMapping("/search")
 	public String greeting(Model model, @RequestParam String juego,String filtro) {
@@ -106,71 +111,8 @@ public class GreetingContoller {
 		return "index";
 	}
 	
-	@GetMapping("/nuevaPublicacion")
-	public String greetingPublicacion(Model model) {
-		List<Videojuego> videojuegos = repVideojuego.findAll();
-		model.addAttribute("videojuegos",videojuegos);
-		
-		return "publicarPost";
-	}
 	
-	//("/publicacion/{idPublicacion}")
-	@GetMapping("/publicacion")
-	public String greetingPublicacion(Model model,@RequestParam String boton) {
-		int n=Integer.valueOf(boton);
-		System.out.println(n);
-		if(n>0) { 
-			List<Publicacion> publicaciones = repPublicacion.findByIdPublicacion(n);
-			Publicacion pub = publicaciones.get(0);
-			model.addAttribute("titulo",pub.getTitulo());
-			model.addAttribute("juego",pub.getVideojuego());
-			model.addAttribute("publicacion",pub.getDescripcion());
-			if(pub.getTipoPublicacion())
-				model.addAttribute("tipo","Truco");
-			else
-				model.addAttribute("tipo","Bug");
-			//Cambiar al usuario que publica
-			model.addAttribute("user",pub.getUsername());
-		}
-		
-		return "publicacion";
-	}
-	@GetMapping("/newpublicacion")
-	public String greetingnuevaPublicacion(Model model, @RequestParam String titulo, String publicacion,String juego,String tipo, String nuevoJuego ) {
-		
-			if(titulo=="" || publicacion==""||tipo==null || (juego==""&&nuevoJuego=="")) {
-				List<Videojuego> videojuegos = repVideojuego.findAll();
-				model.addAttribute("videojuegos",videojuegos);
-				return "publicarPost";
-			}
-			model.addAttribute("titulo",titulo);
-			if(juego=="") {
-				
-				//Añadimos el nuevo juego en la base de datos.
-				
-				juego=nuevoJuego;
-			}
-			model.addAttribute("juego",juego);
-			model.addAttribute("publicacion",publicacion);
-			model.addAttribute("tipo",tipo);
-			//Cambiar al usuario que publica
-			model.addAttribute("user","Pepito");
-			
-			return "publicacion";
-	}
 	
-	@GetMapping("/juego")
-	public String greetingjuego(Model model,@RequestParam String boton) {
-		model.addAttribute("fill",boton);
-		
-		List<Videojuego> videojuego = repVideojuego.findByNombreVideojuego(boton);
-		
-		List<Publicacion> publicaciones = repPublicacion.findByVideojuego(videojuego.get(0));
-		
-		model.addAttribute("publicaciones",publicaciones);
-		
-		return "publicacionesVideojuegos";
-	}
 	
 	
 }

@@ -1,7 +1,8 @@
+<!DOCTYPE html>
 <html>
-
 <head>
 	<title>CHEAT HUB</title>
+	<link  type="text/css" rel="stylesheet" href="css/estilo.css"/>
 </head>
 
 <body>
@@ -9,7 +10,7 @@
 	<h1>CHEATHUB</h1>
 	<hr>
 	<!--/publicacion/{idPublicacion} -->
-	<form action = "/newpublicacion">
+	<form  action = "/newpublicacion">
 		<p> TITULO </p>
 		<input type = 'text' name = 'titulo'/>
 		<p> DESCRIPCIÓN </p>
@@ -17,8 +18,8 @@
 		
 		<p> TIPO PUBLICACIÓN </p>
 		<p>
-		Bug<input type="radio" id="contactChoice1" name="tipo" value="bug">
-		Truco<input type="radio" id="contactChoice2" name="tipo" value="truco">
+		Bug<input type="radio" id="contactChoice1" name="tipo" value="bug"/>
+		Truco<input type="radio" id="contactChoice2" name="tipo" value="truco"/>
 		</p>
         
         <!-- HABRÍA QUE CAMBIAR ESTO Y CARGARLOS MEDIANTE UNA LISTA, QUE OBTENGA LOS DATOS DE LA BD-->
@@ -31,15 +32,18 @@
 			{{/videojuegos}}
 		</ul>
 		</select>
-		<p> Nuevo juego (Introdúzcalo sólo si no aparece tu juego en la lista de arriba)
-		<input type = 'text'' name = 'nuevoJuego'/>
-		</p>
-		<br>
+		<p> Nuevo juego (Introdúzcalo con el boton de abajo sólo si no aparece tu juego en la lista de arriba)</p>
+		
+		
 		<br>
 		
-		<button type="submit" name="boton" value="-1">Publicar</button>
+		<input type = 'submit' name = 'boton' value='Publicar'/>
+		
 	</form>
-	<hr>
+	
+	<form method='post' action = "nuevoVideojuego">
+		<input type = 'submit' name = 'nuevoJuego' value='Añadir Juego'/>
+	</form>
 	
 
 </body>

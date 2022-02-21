@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.cheatHub.entities.Categoria;
 @Repository
-public interface RepositorioCategoria extends JpaRepository<Categoria,Long>{
+public interface RepositorioCategoria extends JpaRepository<Categoria,String>{
 	List<Categoria> findByNombreCategoria(String nombreCategoria);
 }

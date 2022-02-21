@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.cheatHub.entities.Comentario;
 import com.cheatHub.entities.Publicacion;
 @Repository
-public interface RepositorioComentario extends JpaRepository<Comentario,Long>{
+public interface RepositorioComentario extends JpaRepository<Comentario,Integer>{
 	List<Comentario> findByPublicacion(Publicacion publicacion);
 
 }
