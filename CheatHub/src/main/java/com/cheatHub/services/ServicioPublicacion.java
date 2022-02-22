@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.cheatHub.entities.Publicacion;
+import com.cheatHub.entities.Usuario;
 import com.cheatHub.entities.Videojuego;
 import com.cheatHub.repositories.RepositorioPublicacion;
 
@@ -50,6 +51,14 @@ public class ServicioPublicacion {
 	public void guardarPublicacion(Publicacion publicacion) {
 		
 		repositorioPublicacion.save(publicacion);
+		
+	}
+	
+	public Publicacion getPublicacionPorNombre(String titulo) {
+		List<Publicacion>  publi= repositorioPublicacion.findByTitulo(titulo);
+		
+			return publi.get(0);
+		
 		
 	}
 	

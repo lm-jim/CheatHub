@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cheatHub.entities.Publicacion;
+import com.cheatHub.entities.Usuario;
 import com.cheatHub.entities.Comentario;
 import com.cheatHub.repositories.RepositorioComentario;
 
 
 @Service
-public class ServicioComentarios {
+public class ServicioComentario {
 	@Autowired
 	private RepositorioComentario repositorioComentario;
 	
@@ -22,4 +23,7 @@ public class ServicioComentarios {
 		
 	}
 	
+	public void guardarComentario(Comentario comentario) {
+		repositorioComentario.save(comentario);
+	}
 }

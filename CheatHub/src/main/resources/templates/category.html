@@ -5,16 +5,19 @@
 	<link  type="text/css" rel="stylesheet" href="css/estilo.css"/>
 </head>
 <body>
- <p>Buscando en la categoría: {{fill}}</p>
- <hr>
- <p>
- 	<form action = "juego">
-		<ul>
-			{{#juegos}}
-			<input type="submit" name= 'boton' value='{{nombreVideojuego}}'><br>
-			{{/juegos}}
-		</ul>
- 	</form>
+	<h1>CHEATHUB</h1>
+	<hr>
+	<a href="/" class="inicio">Volver Inicio</a>
+	 <p>Buscando en la categoría: {{fill}}</p>
+	 <hr>
+	 <p>
+	 	<form method='post' action = "juego">
+			<ul>
+				{{#juegos}}
+				<input type="submit" name= 'boton' value='{{nombreVideojuego}}'/><br>
+				{{/juegos}}
+			</ul>
+	 	</form>
 	
  
 </body>

@@ -21,8 +21,9 @@ import com.cheatHub.repositories.RepositorioComentario;
 import com.cheatHub.repositories.RepositorioPublicacion;
 import com.cheatHub.repositories.RepositorioVideojuego;
 import com.cheatHub.services.ServicioCategoria;
-import com.cheatHub.services.ServicioComentarios;
+import com.cheatHub.services.ServicioComentario;
 import com.cheatHub.services.ServicioPublicacion;
+import com.cheatHub.services.ServicioUsuario;
 import com.cheatHub.services.ServicioVideojuegos;
 
 @Controller
@@ -32,11 +33,13 @@ public class MainContoller {
 	@Autowired
 	private ServicioCategoria servicioCategoria;
 	@Autowired
+	private ServicioUsuario servicioUsuario;
+	@Autowired
 	private ServicioVideojuegos servicioVideojuego;
 	@Autowired
 	private ServicioPublicacion servicioPublicacion;
 	@Autowired
-	private ServicioComentarios servicioComentarios;
+	private ServicioComentario servicioComentarios;
 
 	@RequestMapping("/search")
 	public String greeting(Model model, @RequestParam String juego,String filtro) {
@@ -114,6 +117,8 @@ public class MainContoller {
 		model.addAttribute("categorias",categorias);
 		return "index";
 	}
+	
+	
 	
 	
 	

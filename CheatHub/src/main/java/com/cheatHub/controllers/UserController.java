@@ -73,7 +73,7 @@ public class UserController {
 		return "user";
 	}
 	
-	@GetMapping("/user")
+	@RequestMapping("/user")
 	public String userPage(Model model, @RequestParam String userName, String password, String birthdate, String realName, String descryption, String url, String boton) {
 		if (userName == "" || password == "") { // No se han introducido datos
 			model.addAttribute("notificacion", "Por favor, introduce nombre y contraseña.");

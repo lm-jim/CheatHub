@@ -5,12 +5,15 @@
 	<link  type="text/css" rel="stylesheet" href="css/estilo.css"/>
 </head>
 <body>
+ <h1>CHEATHUB</h1>
+	<hr>
+	<a href="/" class="inicio">Volver Inicio</a>
  <p>Buscando todas las publicaciones del videojuego: {{fill}}</p>
  <hr>
  	<form action = "publicacion">
 		<ul>
 			{{#publicaciones}}
-			<li>{{nombreUsuario}}  <button type="submit" name="boton">Ir</button> </li>
+			<li>{{titulo}}  <button type="submit" name="boton" value="{{idPublicacion}}">Ir</button> </li>
 			{{/publicaciones}}
 		</ul>
  	</form>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cheatHub.entities.Categoria;
+import com.cheatHub.entities.Comentario;
 import com.cheatHub.entities.Publicacion;
 import com.cheatHub.entities.Usuario;
 import com.cheatHub.entities.Videojuego;
@@ -20,8 +21,9 @@ import com.cheatHub.repositories.RepositorioComentario;
 import com.cheatHub.repositories.RepositorioPublicacion;
 import com.cheatHub.repositories.RepositorioVideojuego;
 import com.cheatHub.services.ServicioCategoria;
-import com.cheatHub.services.ServicioComentarios;
+import com.cheatHub.services.ServicioComentario;
 import com.cheatHub.services.ServicioPublicacion;
+import com.cheatHub.services.ServicioUsuario;
 import com.cheatHub.services.ServicioVideojuegos;
 
 
@@ -32,6 +34,11 @@ public class PublicationController {
 	private ServicioVideojuegos servicioVideojuego;
 	@Autowired
 	private ServicioPublicacion servicioPublicacion;
+	@Autowired
+	private ServicioUsuario servicioUsuario;
+	@Autowired
+	private ServicioComentario servicioComentario;
+
 
 	
 	@PostMapping("/nuevaPublicacion")
@@ -43,7 +50,7 @@ public class PublicationController {
 	}
 	
 	//("/publicacion/{idPublicacion}")
-	@PostMapping("/publicacion")
+	@RequestMapping("/publicacion")
 	public String greetingPublicacion(Model model,@RequestParam String boton) {
 		int n=Integer.valueOf(boton);
 		System.out.println(n);
@@ -63,6 +70,7 @@ public class PublicationController {
 		
 		return "publicacion";
 	}
+	
 	@RequestMapping("/newpublicacion")
 	public String greetingnuevaPublicacion(Model model, @RequestParam String titulo, String publicacion,String juego,String tipo) {
 		
@@ -76,7 +84,7 @@ public class PublicationController {
 			if(tipo=="bug")
 				tipoPubli=true;
 			else tipoPubli=false;
-			Usuario userdef=new Usuario("default","pass");	
+			Usuario userdef=servicioUsuario.getUsuarioByUsername("UsuarioPrueba1");	
 			Videojuego juegoP= servicioVideojuego.getVideojuegoPorNombre(juego);
 			Publicacion nuevaPublicacion=new Publicacion(titulo,publicacion,tipoPubli,userdef,juegoP);
 			servicioPublicacion.guardarPublicacion(nuevaPublicacion);
@@ -91,4 +99,30 @@ public class PublicationController {
 	
 			return "publicacion";
 	}
+	
+	@RequestMapping("/nuevoComentario")
+	public String añadirComentario(Model model, @RequestParam String contenido,String titulo) {
+		Publicacion publi=servicioPublicacion.getPublicacionPorNombre(titulo);
+		Usuario user=servicioUsuario.getUsuarioByUsername("UsuarioPrueba1");
+		Comentario comentario=new Comentario(contenido,user,publi);
+		publi.addComentario(comentario);
+		servicioComentario.guardarComentario(comentario);
+		
+		
+		
+			
+			model.addAttribute("titulo",publi.getTitulo());
+			model.addAttribute("juego",publi.getVideojuego());
+			model.addAttribute("publicacion",publi.getDescripcion());
+			if(publi.getTipoPublicacion())
+				model.addAttribute("tipo","Bug");
+			else
+				model.addAttribute("tipo","Truco");
+			//Cambiar al usuario que publica
+			model.addAttribute("user",publi.getUsername());
+			model.addAttribute("comentarios",publi.getListaComentarios());
+			
+		return "publicacion";
+	}
+	
 }

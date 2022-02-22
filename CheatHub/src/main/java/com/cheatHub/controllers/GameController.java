@@ -3,6 +3,7 @@ package com.cheatHub.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import com.cheatHub.services.ServicioCategoria;
 import com.cheatHub.services.ServicioPublicacion;
 import com.cheatHub.services.ServicioVideojuegos;
 
+@Controller
 public class GameController {
 
 	@Autowired
@@ -29,7 +31,7 @@ public class GameController {
 	private ServicioPublicacion servicioPublicacion;
 	
 	
-	@GetMapping("/juego")
+	@RequestMapping("/juego")
 	public String greetingjuego(Model model,@RequestParam String boton) {
 		model.addAttribute("fill",boton);
 		

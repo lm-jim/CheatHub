@@ -9,6 +9,7 @@
 	
 	<h1>CHEATHUB</h1>
 	<hr>
+	<a href="/" class="inicio">Volver Inicio</a>
     <h2>{{titulo}}</h2>
     <h3>{{juego}}:</h3>
     <br>
@@ -26,9 +27,11 @@
 			{{/comentarios}}
 		</ul>
 	<br><br><br>
-	<form action = "/publicacion/1">
+	<form action = "/nuevoComentario">
 	<p> NUEVO COMENTARIO </p>
-		<input type = 'text' name = 'comentario'/>
+		<input type = 'text' name = 'contenido'/>
+		
+		<button type="submit" name="titulo" value="{{titulo}}">Subir comentario</button>
 	</form>
 	
 </body>

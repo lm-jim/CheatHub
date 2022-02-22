@@ -18,4 +18,6 @@ public interface RepositorioPublicacion extends JpaRepository<Publicacion,Intege
 	
 	List<Publicacion> findAllByOrderByPuntuacion();
 	
+	List<Publicacion> findByTitulo(String titulo);
+	
 }
