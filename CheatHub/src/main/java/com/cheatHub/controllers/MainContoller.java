@@ -1,4 +1,4 @@
-package com.cheatHub;
+package com.cheatHub.controllers;
 
 
 import java.util.List;
@@ -20,19 +20,23 @@ import com.cheatHub.repositories.RepositorioCategoria;
 import com.cheatHub.repositories.RepositorioComentario;
 import com.cheatHub.repositories.RepositorioPublicacion;
 import com.cheatHub.repositories.RepositorioVideojuego;
+import com.cheatHub.services.ServicioCategoria;
+import com.cheatHub.services.ServicioComentarios;
+import com.cheatHub.services.ServicioPublicacion;
+import com.cheatHub.services.ServicioVideojuegos;
 
 @Controller
 public class MainContoller {
 
 	private Object filtro;
 	@Autowired
-	private RepositorioCategoria repCategorias;
+	private ServicioCategoria servicioCategoria;
 	@Autowired
-	private RepositorioVideojuego repVideojuego;
+	private ServicioVideojuegos servicioVideojuego;
 	@Autowired
-	private RepositorioPublicacion repPublicacion;
+	private ServicioPublicacion servicioPublicacion;
 	@Autowired
-	private RepositorioComentario repComentario;
+	private ServicioComentarios servicioComentarios;
 
 	@RequestMapping("/search")
 	public String greeting(Model model, @RequestParam String juego,String filtro) {
@@ -59,22 +63,22 @@ public class MainContoller {
 		//Vamos a hacer la búsuqeda según lo que se ha introducido.
 		List<Publicacion> publicacion;
 		if(filtrarjuego) { //Si hay juego
-				List<Videojuego> v = repVideojuego.findByNombreVideojuego(juego);
+				Videojuego v = servicioVideojuego.getVideojuegoPorNombre(juego);
 			if(filtrarTipo && filtro.equals("trucos")) { //Y es un truco
-				publicacion = repPublicacion.findByTipoPublicacionAndVideojuego(false,v.get(0));
+				publicacion = servicioPublicacion.getPublicacionPorVideojuegoYTipo(false,v);
 			}else if (filtrarTipo){ //Y es un bug
-				publicacion = repPublicacion.findByTipoPublicacionAndVideojuego(true,v.get(0));
+				publicacion = servicioPublicacion.getPublicacionPorVideojuegoYTipo(true,v);
 			}else { //Da igual que sea truco o bug
-				publicacion = repPublicacion.findByVideojuego(v.get(0));
+				publicacion = servicioPublicacion.getPublicacionPorVideojuego(v);
 			}
 		}
 		else { //Si no hay juego, es cualquiera
 			if(filtrarTipo && filtro.equals("trucos")) { //Y es truco
-				publicacion = repPublicacion.findByTipoPublicacion(false);
+				publicacion = servicioPublicacion.getPublicacionPorTipo(false);
 			}else if (filtrarTipo){ //Y es bug
-				publicacion = repPublicacion.findByTipoPublicacion(true);
+				publicacion = servicioPublicacion.getPublicacionPorTipo(true);
 			}else { //Da igual que sea truco o bug. En este caso serían todas las publicaciones.
-				publicacion = repPublicacion.findAll();
+				publicacion = servicioPublicacion.getAll();
 			}
 		}
 		
@@ -90,9 +94,9 @@ public class MainContoller {
 		
 			model.addAttribute("fill",boton);
 			
-			List<Categoria> categoria = repCategorias.findByNombreCategoria(boton);
+			Categoria categoria = servicioCategoria.getCategoriaByName(boton);
 
-			List<Videojuego> videojuegos = repVideojuego.findByCategoria(categoria.get(0)); //Supuestamente solo debería de haber 1 categoría con ese nombre, así que buscamos por la pos 0
+			List<Videojuego> videojuegos = servicioVideojuego.getPorCategoria(categoria); //Supuestamente solo debería de haber 1 categoría con ese nombre, así que buscamos por la pos 0
 			
 			model.addAttribute("juegos",videojuegos);
 		
@@ -104,8 +108,8 @@ public class MainContoller {
 
 	@GetMapping("/")
 	public String greetingCond(Model model) {
-		List<Categoria> categorias = repCategorias.findAll();
-		List<Videojuego> juegos = repVideojuego.findAll();
+		List<Categoria> categorias = servicioCategoria.getAll();
+		List<Videojuego> juegos = servicioVideojuego.getAll();
 		model.addAttribute("videojuegos",juegos);
 		model.addAttribute("categorias",categorias);
 		return "index";

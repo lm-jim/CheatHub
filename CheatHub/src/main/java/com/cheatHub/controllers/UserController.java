@@ -1,4 +1,4 @@
-package com.cheatHub;
+package com.cheatHub.controllers;
 
 import java.util.Date;
 import java.text.ParseException;

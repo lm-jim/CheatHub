@@ -9,7 +9,6 @@ import com.cheatHub.entities.Publicacion;
 import com.cheatHub.entities.Videojuego;
 @Repository
 public interface RepositorioPublicacion extends JpaRepository<Publicacion,Integer> {
-	List<Publicacion> findByIdPublicacion(int idPublicacion);
 	
 	List<Publicacion> findByTipoPublicacion(boolean tipoPublicacion);
 	

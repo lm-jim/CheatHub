@@ -1,4 +1,4 @@
-package com.cheatHub;
+package com.cheatHub.controllers;
 
 import java.util.List;
 
@@ -19,24 +19,24 @@ import com.cheatHub.repositories.RepositorioCategoria;
 import com.cheatHub.repositories.RepositorioComentario;
 import com.cheatHub.repositories.RepositorioPublicacion;
 import com.cheatHub.repositories.RepositorioVideojuego;
+import com.cheatHub.services.ServicioCategoria;
+import com.cheatHub.services.ServicioComentarios;
+import com.cheatHub.services.ServicioPublicacion;
+import com.cheatHub.services.ServicioVideojuegos;
 
 
 @Controller
 public class PublicationController {
-	
+
 	@Autowired
-	private RepositorioCategoria repCategorias;
+	private ServicioVideojuegos servicioVideojuego;
 	@Autowired
-	private RepositorioVideojuego repVideojuego;
-	@Autowired
-	private RepositorioPublicacion repPublicacion;
-	@Autowired
-	private RepositorioComentario repComentario;
+	private ServicioPublicacion servicioPublicacion;
 
 	
 	@PostMapping("/nuevaPublicacion")
 	public String greetingPublicacion(Model model) {
-		List<Videojuego> videojuegos = repVideojuego.findAll();
+		List<Videojuego> videojuegos = servicioVideojuego.getAll();
 		model.addAttribute("videojuegos",videojuegos);
 		
 		return "publicarPost";
@@ -48,8 +48,7 @@ public class PublicationController {
 		int n=Integer.valueOf(boton);
 		System.out.println(n);
 		if(n>0) { 
-			List<Publicacion> publicaciones = repPublicacion.findByIdPublicacion(n);
-			Publicacion pub = publicaciones.get(0);
+			Publicacion pub = servicioPublicacion.getPublicacionPorId(n);
 			model.addAttribute("titulo",pub.getTitulo());
 			model.addAttribute("juego",pub.getVideojuego());
 			model.addAttribute("publicacion",pub.getDescripcion());
@@ -68,7 +67,7 @@ public class PublicationController {
 	public String greetingnuevaPublicacion(Model model, @RequestParam String titulo, String publicacion,String juego,String tipo) {
 		
 			if(titulo=="" || publicacion==""||tipo==null ) {
-				List<Videojuego> videojuegos = repVideojuego.findAll();
+				List<Videojuego> videojuegos = servicioVideojuego.getAll();
 				model.addAttribute("videojuegos",videojuegos);
 				return "publicarPost";
 			}
@@ -78,9 +77,9 @@ public class PublicationController {
 				tipoPubli=true;
 			else tipoPubli=false;
 			Usuario userdef=new Usuario("default","pass");	
-			Videojuego juegoP= repVideojuego.findById(juego).get();
-			Publicacion Nuevapublicacion=new Publicacion(titulo,publicacion,tipoPubli,userdef,juegoP);
-			repPublicacion.save(Nuevapublicacion);
+			Videojuego juegoP= servicioVideojuego.getVideojuegoPorNombre(juego);
+			Publicacion nuevaPublicacion=new Publicacion(titulo,publicacion,tipoPubli,userdef,juegoP);
+			servicioPublicacion.guardarPublicacion(nuevaPublicacion);
 	
 			model.addAttribute("titulo",titulo);
 			model.addAttribute("juego",juego);

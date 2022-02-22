@@ -1,4 +1,4 @@
-package com.cheatHub;
+package com.cheatHub.controllers;
 
 import java.util.List;
 
@@ -15,24 +15,27 @@ import com.cheatHub.entities.Videojuego;
 import com.cheatHub.repositories.RepositorioCategoria;
 import com.cheatHub.repositories.RepositorioPublicacion;
 import com.cheatHub.repositories.RepositorioVideojuego;
+import com.cheatHub.services.ServicioCategoria;
+import com.cheatHub.services.ServicioPublicacion;
+import com.cheatHub.services.ServicioVideojuegos;
 
 public class GameController {
 
 	@Autowired
-	private RepositorioCategoria repCategorias;
+	private ServicioCategoria servicioCategoria;
 	@Autowired
-	private RepositorioVideojuego repVideojuego;
+	private ServicioVideojuegos servicioVideojuego;
 	@Autowired
-	private RepositorioPublicacion repPublicacion;
+	private ServicioPublicacion servicioPublicacion;
 	
 	
 	@GetMapping("/juego")
 	public String greetingjuego(Model model,@RequestParam String boton) {
 		model.addAttribute("fill",boton);
 		
-		List<Videojuego> videojuego = repVideojuego.findByNombreVideojuego(boton);
+		Videojuego videojuego = servicioVideojuego.getVideojuegoPorNombre(boton);
 		
-		List<Publicacion> publicaciones = repPublicacion.findByVideojuego(videojuego.get(0));
+		List<Publicacion> publicaciones = servicioPublicacion.getPublicacionPorVideojuego(videojuego);
 		
 		model.addAttribute("publicaciones",publicaciones);
 		
@@ -41,7 +44,7 @@ public class GameController {
 	
 	@PostMapping("/nuevoVideojuego")
 	public String greetingNuevoVideojuego(Model model) {
-		List<Categoria> categorias = repCategorias.findAll();
+		List<Categoria> categorias = servicioCategoria.getAll();
 		model.addAttribute("categoria",categorias);
 		
 		return "añadirJuego";
@@ -49,11 +52,11 @@ public class GameController {
 	
 	@RequestMapping("/añadirVideojuego")
 	public String greetingAñadirVideojuego(Model model,@RequestParam String nombreVideojuego,String descripcionVideojuego,String categoriaVideojuego ) {
-		if(!repVideojuego.existsById(nombreVideojuego)) {
+		if(!servicioVideojuego.existeVideojuego(nombreVideojuego)) {
 			Categoria categoria;
-			categoria=repCategorias.findByNombreCategoria(categoriaVideojuego).get(0);
+			categoria=servicioCategoria.getCategoriaByName(categoriaVideojuego);
 			Videojuego videojuego=new Videojuego(nombreVideojuego,descripcionVideojuego,categoria);
-			repVideojuego.save(videojuego);
+			servicioVideojuego.guardarVideojuego(videojuego);
 					
 		}
 		
