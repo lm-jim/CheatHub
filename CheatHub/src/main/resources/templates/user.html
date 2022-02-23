@@ -25,6 +25,11 @@
     <h4>{{fechaNacimiento}}</h4>
     <h4>{{Descripcion}}</h4>
     <hr>
-    <p>{{Publicaciones}}</p>
+    <ul>
+			{{#Publicaciones}}
+			<p>{{.}}</p>
+			{{/Publicaciones}}
+		</ul>
+   
 </body>
 </html>

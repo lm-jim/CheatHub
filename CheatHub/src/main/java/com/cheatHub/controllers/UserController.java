@@ -81,8 +81,8 @@ public class UserController {
 			model.addAttribute("imagen", user.getAvatar());
 		else
 			model.addAttribute("imagen", "");
-
-		model.addAttribute("Publicaciones", "Ninguna");
+		
+		model.addAttribute("Publicaciones", user.getListaPublicaciones());
 
 		return "user";
 	}
