@@ -49,24 +49,21 @@ public class PublicationController {
 		return "publicarPost";
 	}
 	
-	//("/publicacion/{idPublicacion}")
-	@RequestMapping("/publicacion")
-	public String greetingPublicacion(Model model,@RequestParam String boton) {
-		int n=Integer.valueOf(boton);
-		System.out.println(n);
-		if(n>0) { 
-			Publicacion pub = servicioPublicacion.getPublicacionPorId(n);
-			model.addAttribute("titulo",pub.getTitulo());
-			model.addAttribute("juego",pub.getVideojuego());
-			model.addAttribute("publicacion",pub.getDescripcion());
-			if(pub.getTipoPublicacion())
-				model.addAttribute("tipo","Bug");
-			else
-				model.addAttribute("tipo","Truco");
-			//Cambiar al usuario que publica
-			model.addAttribute("user",pub.getUsername());
-			model.addAttribute("comentarios",pub.getListaComentarios());
-		}
+	@RequestMapping("/publicacion/{pubId}")
+	public String greetingPublicacion(Model model, @PathVariable String pubId) {
+		Publicacion pub = servicioPublicacion.getPublicacionPorId(Integer.parseInt(pubId));
+		model.addAttribute("titulo",pub.getTitulo());
+		model.addAttribute("juego",pub.getVideojuego());
+		model.addAttribute("publicacion",pub.getDescripcion());
+		if(pub.getTipoPublicacion())
+			model.addAttribute("tipo","Bug");
+		else
+			model.addAttribute("tipo","Truco");
+		//Cambiar al usuario que publica
+		model.addAttribute("user",pub.getUsername());
+		model.addAttribute("comentarios",pub.getListaComentarios());
+		model.addAttribute("puntuacion", pub.getPuntuacion());
+		model.addAttribute("idPublicacion", pubId);
 		
 		return "publicacion";
 	}
@@ -74,55 +71,65 @@ public class PublicationController {
 	@RequestMapping("/newpublicacion")
 	public String greetingnuevaPublicacion(Model model, @RequestParam String titulo, String publicacion,String juego,String tipo) {
 		
-			if(titulo=="" || publicacion==""||tipo==null ) {
-				List<Videojuego> videojuegos = servicioVideojuego.getAll();
-				model.addAttribute("videojuegos",videojuegos);
-				return "publicarPost";
-			}
-			
-			boolean tipoPubli;
-			if(tipo=="bug")
-				tipoPubli=true;
-			else tipoPubli=false;
-			Usuario userdef=servicioUsuario.getUsuarioByUsername("UsuarioPrueba1");	
-			Videojuego juegoP= servicioVideojuego.getVideojuegoPorNombre(juego);
-			Publicacion nuevaPublicacion=new Publicacion(titulo,publicacion,tipoPubli,userdef,juegoP);
-			servicioPublicacion.guardarPublicacion(nuevaPublicacion);
-	
-			model.addAttribute("titulo",titulo);
-			model.addAttribute("juego",juego);
-			model.addAttribute("publicacion",publicacion);
-			model.addAttribute("tipo",tipo);
-			//Cambiar al usuario que publica cuando haya login
-			model.addAttribute("user",userdef);
-			
-	
-			return "publicacion";
+		if(titulo=="" || publicacion==""||tipo==null ) {
+			List<Videojuego> videojuegos = servicioVideojuego.getAll();
+			model.addAttribute("videojuegos",videojuegos);
+			return "publicarPost";
+		}
+		
+		boolean tipoPubli;
+		if(tipo=="bug")
+			tipoPubli=true;
+		else tipoPubli=false;
+		Usuario userdef=servicioUsuario.getUsuarioByUsername("UsuarioPrueba1");	
+		Videojuego juegoP= servicioVideojuego.getVideojuegoPorNombre(juego);
+		Publicacion nuevaPublicacion=new Publicacion(titulo,publicacion,tipoPubli,userdef,juegoP);
+		servicioPublicacion.guardarPublicacion(nuevaPublicacion);
+
+		model.addAttribute("titulo",titulo);
+		model.addAttribute("juego",juego);
+		model.addAttribute("publicacion",publicacion);
+		model.addAttribute("tipo",tipo);
+		//Cambiar al usuario que publica cuando haya login
+		model.addAttribute("user",userdef);
+		
+
+		return "redirect:/publicacion/"+nuevaPublicacion.getPublicacion();
 	}
 	
 	@RequestMapping("/nuevoComentario")
 	public String añadirComentario(Model model, @RequestParam String contenido,String titulo) {
+		
 		Publicacion publi=servicioPublicacion.getPublicacionPorNombre(titulo);
 		Usuario user=servicioUsuario.getUsuarioByUsername("UsuarioPrueba1");
 		Comentario comentario=new Comentario(contenido,user,publi);
 		publi.addComentario(comentario);
 		servicioComentario.guardarComentario(comentario);
 		
-		
-		
+		model.addAttribute("titulo",publi.getTitulo());
+		model.addAttribute("juego",publi.getVideojuego());
+		model.addAttribute("publicacion",publi.getDescripcion());
+		if(publi.getTipoPublicacion())
+			model.addAttribute("tipo","Bug");
+		else
+			model.addAttribute("tipo","Truco");
+		//Cambiar al usuario que publica
+		model.addAttribute("user",publi.getUsername());
+		model.addAttribute("comentarios",publi.getListaComentarios());
 			
-			model.addAttribute("titulo",publi.getTitulo());
-			model.addAttribute("juego",publi.getVideojuego());
-			model.addAttribute("publicacion",publi.getDescripcion());
-			if(publi.getTipoPublicacion())
-				model.addAttribute("tipo","Bug");
-			else
-				model.addAttribute("tipo","Truco");
-			//Cambiar al usuario que publica
-			model.addAttribute("user",publi.getUsername());
-			model.addAttribute("comentarios",publi.getListaComentarios());
-			
-		return "publicacion";
+		return "redirect:/publicacion/"+publi.getPublicacion();
+	}
+	@RequestMapping("/votarPublicacion/{pubId}")
+	public String votarPublicacion(Model model, @RequestParam String vote, @PathVariable String pubId) {
+		
+		Publicacion publi=servicioPublicacion.getPublicacionPorId(Integer.parseInt(pubId));
+		if(vote.contentEquals("up"))
+			publi.setPuntuacion(publi.getPuntuacion()+1);
+		else
+			publi.setPuntuacion(publi.getPuntuacion()-1);
+		System.out.println(vote);
+		servicioPublicacion.guardarPublicacion(publi);
+		return "redirect:/publicacion/"+publi.getPublicacion();
 	}
 	
 }

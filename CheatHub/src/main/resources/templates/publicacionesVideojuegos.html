@@ -9,15 +9,17 @@
 	<hr>
 	<a href="/" class="inicio">Volver Inicio</a>
  <p>Buscando todas las publicaciones del videojuego: {{fill}}</p>
+ 	<form action = "/seguirVideojuego/{{fill}}">
+		<button type="submit">{{textoBotonSeguir}}</button>
+	</form>
  <hr>
- 	<form action = "publicacion">
-		<ul>
-			{{#publicaciones}}
-			<li>{{titulo}}  <button type="submit" name="boton" value="{{idPublicacion}}">Ir</button> </li>
-			{{/publicaciones}}
-		</ul>
- 	</form>
-	
- 
+<ul>
+	{{#publicaciones}}
+	<form method='post' action = "/publicacion/{{idPublicacion}}">
+		<li>{{titulo}}  <button type="submit">Ir</button> </li>
+	</form>
+	{{/publicaciones}}
+</ul>
+ 	
 </body>
 </html>

@@ -12,22 +12,24 @@
 	
 	<h1>CHEATHUB</h1>
 	<hr>
-	<form action = "category">
-		<p>Categorías
-		</p>
+	
+	<p>Categorías
+	</p>
+	
+	<p>
+	<ul>
+		{{#categorias}}
+		<form method='post' action = "/category/{{nombreCategoria}}">
+			<button type="submit" name="boton" value="{{nombreCategoria}}">{{nombreCategoria}}</button>
+		</form>
+		{{/categorias}}
+	</ul>			
+	</p>
+	<!-- <input type="submit" name= 'boton' value="Aventura">
+		<input type="submit" name= 'boton' value="Simulador">
+		<input type="submit" name= 'boton' value="Arcade"> -->
 		
-		<p>
-		<ul>
-			{{#categorias}}
-			<input type="submit" name= 'boton' value={{.}}>
-			{{/categorias}}
-		</ul>			
-		</p>
-		<!-- <input type="submit" name= 'boton' value="Aventura">
-			<input type="submit" name= 'boton' value="Simulador">
-			<input type="submit" name= 'boton' value="Arcade"> -->
-		
-	</form>
+	
 	<hr>
 	<form action = "search">
 		<p> Buscar videojuego: </p>

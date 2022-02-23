@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -32,6 +33,9 @@ public class Usuario {
 	
 	@OneToMany(mappedBy="usuario",cascade=CascadeType.ALL)
 	private List<Publicacion> listaPublicaciones;
+	
+	@ManyToMany
+	private List<Videojuego> listaJuegosSeguidos;
 	
 	public Usuario() {}
 	
@@ -128,6 +132,14 @@ public class Usuario {
 		this.listaPublicaciones = listaPublicaciones;
 	}
 	
+	public List<Videojuego> getListaJuegosSeguidos() {
+		return listaJuegosSeguidos;
+	}
+
+	public void setListaJuegosSeguidos(List<Videojuego> listaJuegosSeguidos) {
+		this.listaJuegosSeguidos = listaJuegosSeguidos;
+	}
+
 	public void addComentario(Comentario comentario) {
 		if(!listaComentarios.contains(comentario))
 			listaComentarios.add(comentario);
@@ -136,6 +148,16 @@ public class Usuario {
 	public void addPublicacion(Publicacion publicacion) {
 		if(!listaPublicaciones.contains(publicacion))
 			listaPublicaciones.add(publicacion);
+	}
+	
+	public void addJuegoSeguido(Videojuego videojuego) {
+		if(!listaJuegosSeguidos.contains(videojuego))
+			listaJuegosSeguidos.add(videojuego);
+	}
+	
+	public void removeJuegoSeguido(Videojuego videojuego) {
+		if(listaJuegosSeguidos.contains(videojuego))
+			listaJuegosSeguidos.remove(videojuego);
 	}
 	
 	@Override

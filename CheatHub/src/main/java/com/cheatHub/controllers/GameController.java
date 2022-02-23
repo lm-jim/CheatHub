@@ -6,18 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cheatHub.entities.Categoria;
 import com.cheatHub.entities.Publicacion;
+import com.cheatHub.entities.Usuario;
 import com.cheatHub.entities.Videojuego;
 import com.cheatHub.repositories.RepositorioCategoria;
 import com.cheatHub.repositories.RepositorioPublicacion;
 import com.cheatHub.repositories.RepositorioVideojuego;
 import com.cheatHub.services.ServicioCategoria;
 import com.cheatHub.services.ServicioPublicacion;
+import com.cheatHub.services.ServicioUsuario;
 import com.cheatHub.services.ServicioVideojuegos;
 
 @Controller
@@ -29,15 +32,23 @@ public class GameController {
 	private ServicioVideojuegos servicioVideojuego;
 	@Autowired
 	private ServicioPublicacion servicioPublicacion;
+	@Autowired
+	private ServicioUsuario servicioUsuario;
 	
 	
-	@RequestMapping("/juego")
-	public String greetingjuego(Model model,@RequestParam String boton) {
-		model.addAttribute("fill",boton);
+	@RequestMapping("/juego/{videojuego}")
+	public String greetingjuego(Model model, @PathVariable String videojuego) {
+		model.addAttribute("fill", videojuego);
 		
-		Videojuego videojuego = servicioVideojuego.getVideojuegoPorNombre(boton);
+		Usuario user = servicioUsuario.getUsuarioByUsername("UsuarioPrueba1");
+		Videojuego juego = servicioVideojuego.getVideojuegoPorNombre(videojuego);
 		
-		List<Publicacion> publicaciones = servicioPublicacion.getPublicacionPorVideojuego(videojuego);
+		if(user.getListaJuegosSeguidos().contains(juego))
+			model.addAttribute("textoBotonSeguir", "Dejar de seguir");
+		else
+			model.addAttribute("textoBotonSeguir", "Seguir");
+		
+		List<Publicacion> publicaciones = servicioPublicacion.getPublicacionPorVideojuego(juego);
 		
 		model.addAttribute("publicaciones",publicaciones);
 		
@@ -53,7 +64,7 @@ public class GameController {
 	}
 	
 	@RequestMapping("/añadirVideojuego")
-	public String greetingAñadirVideojuego(Model model,@RequestParam String nombreVideojuego,String descripcionVideojuego,String categoriaVideojuego ) {
+	public String greetingAñadirVideojuego(Model model, @RequestParam String nombreVideojuego, String descripcionVideojuego, String categoriaVideojuego ) {
 		if(!servicioVideojuego.existeVideojuego(nombreVideojuego)) {
 			Categoria categoria;
 			categoria=servicioCategoria.getCategoriaByName(categoriaVideojuego);
@@ -63,5 +74,29 @@ public class GameController {
 		}
 		
 		return "añadirJuego";
+	}
+	
+	@RequestMapping("/seguirVideojuego/{videojuego}")
+	public String seguirVideojuego(Model model, @PathVariable String videojuego) {
+		//USUARIO DE PRUEBA
+		Usuario user = servicioUsuario.getUsuarioByUsername("UsuarioPrueba1");
+		Videojuego juego = servicioVideojuego.getVideojuegoPorNombre(videojuego);
+		
+		if(user.getListaJuegosSeguidos().contains(juego)) {
+			user.removeJuegoSeguido(juego);
+			juego.removeSeguidor(user);
+		}
+		else
+		{
+			user.addJuegoSeguido(juego);
+			juego.addSeguidor(user);
+		}
+		
+		servicioUsuario.registrarUsuario(user);
+		servicioVideojuego.guardarVideojuego(juego);
+		
+		model.addAttribute("fill", videojuego);
+		
+		return "redirect:/juego/"+videojuego;
 	}
 }

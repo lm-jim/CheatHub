@@ -11,13 +11,13 @@
 	 <p>Buscando en la categoría: {{fill}}</p>
 	 <hr>
 	 <p>
-	 	<form method='post' action = "juego">
-			<ul>
-				{{#juegos}}
-				<input type="submit" name= 'boton' value='{{nombreVideojuego}}'/><br>
-				{{/juegos}}
-			</ul>
-	 	</form>
+	 	
+		<ul>
+			{{#juegos}}
+			<form method='post' action = "/juego/{{nombreVideojuego}}"><input type="submit" name= 'boton' value='{{nombreVideojuego}}'/><br></form>
+			{{/juegos}}
+		</ul>
+	 	
 	
  
 </body>

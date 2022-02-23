@@ -18,6 +18,11 @@
     <h4>Tipo:  {{tipo}}</h4>		
     <br>
     <h4>Publicado por: {{user}}</h4>
+    <h4>Puntuacion: {{puntuacion}}</h4>
+    <form action = "/votarPublicacion/{{idPublicacion}}">
+    	<button type="submit" name="vote" value="up">Me gusta</button>
+		<button type="submit" name="vote" value="down">No me gusta</button>
+	</form>
     <hr>
 	<p>COMENTARIOS<p>
 	<ul class="comentario">

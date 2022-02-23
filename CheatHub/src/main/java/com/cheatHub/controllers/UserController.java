@@ -73,7 +73,7 @@ public class UserController {
 		return "user";
 	}
 	
-	@RequestMapping("/user")
+	@RequestMapping("/registerUser")
 	public String userPage(Model model, @RequestParam String userName, String password, String birthdate, String realName, String descryption, String url, String boton) {
 		if (userName == "" || password == "") { // No se han introducido datos
 			model.addAttribute("notificacion", "Por favor, introduce nombre y contraseña.");
@@ -128,7 +128,7 @@ public class UserController {
 
 		model.addAttribute("Publicaciones", "Ninguna");
 		model.addAttribute("notificacion", "El usuario \""+userName+"\" ha sido registrado correctamente.");
-		return "user";
+		return "redirect:/user/"+userName;
 	}
 }
 

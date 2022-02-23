@@ -30,17 +30,14 @@ import com.cheatHub.services.ServicioVideojuegos;
 public class MainContoller {
 
 	private Object filtro;
+	
 	@Autowired
 	private ServicioCategoria servicioCategoria;
-	@Autowired
-	private ServicioUsuario servicioUsuario;
 	@Autowired
 	private ServicioVideojuegos servicioVideojuego;
 	@Autowired
 	private ServicioPublicacion servicioPublicacion;
-	@Autowired
-	private ServicioComentario servicioComentarios;
-
+	
 	@RequestMapping("/search")
 	public String greeting(Model model, @RequestParam String juego,String filtro) {
 		
@@ -92,12 +89,12 @@ public class MainContoller {
 		return "busqueda";
 	}
 	
-	@RequestMapping("/category")
-	public String greetingCategory(Model model, @RequestParam String boton) {
+	@RequestMapping("/category/{category}")
+	public String greetingCategory(Model model, @PathVariable String category) {
 		
-			model.addAttribute("fill",boton);
+			model.addAttribute("fill",category);
 			
-			Categoria categoria = servicioCategoria.getCategoriaByName(boton);
+			Categoria categoria = servicioCategoria.getCategoriaByName(category);
 
 			List<Videojuego> videojuegos = servicioVideojuego.getPorCategoria(categoria); //Supuestamente solo debería de haber 1 categoría con ese nombre, así que buscamos por la pos 0
 			

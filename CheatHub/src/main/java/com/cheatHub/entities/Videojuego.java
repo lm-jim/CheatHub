@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -23,7 +24,10 @@ public class Videojuego {
 	private Categoria categoria;
 	
 	@OneToMany(mappedBy="videojuego")
-	private List<Publicacion> ListaPublicaciones;
+	private List<Publicacion> listaPublicaciones;
+	
+	@ManyToMany
+	private List<Usuario> listaSeguidores;
 	
 	public Videojuego() {}
 	
@@ -31,7 +35,8 @@ public class Videojuego {
 		this.nombreVideojuego = nombreVideoJuego;
 		this.descripcion = descripcion;
 		this.categoria = categoria;
-		this.ListaPublicaciones=new ArrayList<>();
+		this.listaPublicaciones=new ArrayList<>();
+		this.listaSeguidores=new ArrayList<>();
 	}
 
 	public String getNombreVideoJuego() {
@@ -59,16 +64,33 @@ public class Videojuego {
 	}
 
 	public List<Publicacion> getListaPublicaciones() {
-		return ListaPublicaciones;
+		return listaPublicaciones;
 	}
 
 	public void setListaPublicaciones(List<Publicacion> listaPublicaciones) {
-		ListaPublicaciones = listaPublicaciones;
+		this.listaPublicaciones = listaPublicaciones;
 	}
 	
 	public void addPublicacion(Publicacion publicacion) {
-		if(!ListaPublicaciones.contains(publicacion))
-			ListaPublicaciones.add(publicacion);
+		if(!listaPublicaciones.contains(publicacion))
+			listaPublicaciones.add(publicacion);
+	}
+	public List<Usuario> getListaSeguidores() {
+		return listaSeguidores;
+	}
+
+	public void setListaSeguidores(List<Usuario> listaSeguidores) {
+		this.listaSeguidores = listaSeguidores;
+	}
+	
+	public void addSeguidor(Usuario seguidor) {
+		if(!listaSeguidores.contains(seguidor))
+			listaSeguidores.add(seguidor);
+	}
+	
+	public void removeSeguidor(Usuario seguidor) {
+		if(listaSeguidores.contains(seguidor))
+			listaSeguidores.remove(seguidor);
 	}
 	
 	@Override
