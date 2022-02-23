@@ -38,6 +38,8 @@ public class PublicationController {
 	private ServicioUsuario servicioUsuario;
 	@Autowired
 	private ServicioComentario servicioComentario;
+	@Autowired
+	private ServicioCategoria servicioCategoria;
 
 
 	
@@ -130,6 +132,20 @@ public class PublicationController {
 		System.out.println(vote);
 		servicioPublicacion.guardarPublicacion(publi);
 		return "redirect:/publicacion/"+publi.getPublicacion();
+	}
+	
+	@RequestMapping("/editarPublicacion")
+	public String editarPublicacion(Model model,@RequestParam String boton){
+		Publicacion publi=servicioPublicacion.getPublicacionPorId(Integer.parseInt(boton));
+		servicioPublicacion.borrarPublicacion(publi);
+		
+		
+		List<Categoria> categorias = servicioCategoria.getAll();
+		List<Videojuego> juegos = servicioVideojuego.getAll();
+		model.addAttribute("videojuegos",juegos);
+		model.addAttribute("categorias",categorias);
+		return "index";
+			
 	}
 	
 }

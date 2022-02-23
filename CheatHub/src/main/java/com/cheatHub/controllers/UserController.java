@@ -26,8 +26,7 @@ public class UserController {
 
 	@Autowired
 	ServicioUsuario servicioUsuarios;
-	@Autowired
-	RepositorioUsuario repUsuario;
+
 
 	@GetMapping("/login")
 	public String login(Model model) {
@@ -193,7 +192,7 @@ public class UserController {
 			
 			model.addAttribute("Publicaciones",u.getListaPublicaciones());
 			
-			repUsuario.save(u);
+			servicioUsuarios.registrarUsuario(u);
 			
 			return "redirect:/user/"+u.getNombreUsuario();
 		}

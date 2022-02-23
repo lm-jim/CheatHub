@@ -54,6 +54,12 @@ public class ServicioPublicacion {
 		
 	}
 	
+	public void borrarPublicacion(Publicacion publicacion) {
+		
+		repositorioPublicacion.delete(publicacion);
+		
+	}
+	
 	public Publicacion getPublicacionPorNombre(String titulo) {
 		List<Publicacion>  publi= repositorioPublicacion.findByTitulo(titulo);
 		

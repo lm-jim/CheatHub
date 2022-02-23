@@ -2,24 +2,24 @@
 <html>
 <head>
 	<title>CHEAT HUB</title>
-	<link  type="text/css" rel="stylesheet" href="css/estilo.css"/>
+	<link  type="text/css" rel="stylesheet" href="/css/estilo.css"/>
 </head>
 <body>
- <h1>CHEATHUB</h1>
+ 	<h1>CHEATHUB</h1>
 	<hr>
 	<a href="/" class="inicio">Volver Inicio</a>
- <p>Buscando todas las publicaciones del videojuego: {{fill}}</p>
+ 	<p>Buscando todas las publicaciones del videojuego: {{fill}}</p>
  	<form action = "/seguirVideojuego/{{fill}}">
 		<button type="submit">{{textoBotonSeguir}}</button>
 	</form>
- <hr>
-<ul>
-	{{#publicaciones}}
-	<form method='post' action = "/publicacion/{{idPublicacion}}">
-		<li>{{titulo}}  <button type="submit">Ir</button> </li>
-	</form>
-	{{/publicaciones}}
-</ul>
+ 	<hr>
+	<ul>
+		{{#publicaciones}}
+		<form method='post' action = "/publicacion/{{idPublicacion}}">
+			<li>{{titulo}}  <button type="submit">Ir</button> </li>
+		</form>
+		{{/publicaciones}}
+	</ul>
  	
 </body>
 </html>

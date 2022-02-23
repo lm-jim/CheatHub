@@ -3,7 +3,7 @@
 
 <head>
 	<title>CHEAT HUB</title>
-	<link  type="text/css" rel="stylesheet" href="css/estilo.css"/>
+	<link  type="text/css" rel="stylesheet" href="/css/estilo.css"/>
 </head>
 
 <body>
@@ -17,18 +17,18 @@
 	</p>
 	
 	<p>
-	<ul>
-		{{#categorias}}
-		<form method='post' action = "/category/{{nombreCategoria}}">
-			<button type="submit" name="boton" value="{{nombreCategoria}}">{{nombreCategoria}}</button>
-		</form>
-		{{/categorias}}
-	</ul>			
-	</p>
-	<!-- <input type="submit" name= 'boton' value="Aventura">
-		<input type="submit" name= 'boton' value="Simulador">
-		<input type="submit" name= 'boton' value="Arcade"> -->
+	
+	<ul >
 		
+			{{#categorias}}
+			<form  method='post' action = "/category/{{nombreCategoria}}" class="categoria">
+				<button type="submit" name="boton" value="{{nombreCategoria}}">{{nombreCategoria}}</button>
+			</form>
+			{{/categorias}}
+		
+	</ul>
+				
+	</p>
 	
 	<hr>
 	<form action = "search">
