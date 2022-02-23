@@ -45,19 +45,19 @@ public class MainContoller {
 		//Primero vamos a ver por lo que vamos a filtrar la búsqueda
 		if(juego=="") {
 			filtrarjuego=false;
-			model.addAttribute("videojuego","cualquier juego");
+			model.addAttribute("videojuego"," de cualquier juego");
 		}
 		else {
 			filtrarjuego=true;
 			model.addAttribute("videojuego","del videojuego "+juego);
 		}
-		if(filtro!=null) {
+		if(!filtro.equals("trucos,bugs") && filtro!=null ) {
 			filtrarTipo=true;
 			model.addAttribute("fill",filtro);
 		}
 		else {
 			filtrarTipo=false;
-			model.addAttribute("fill","ningún");
+			model.addAttribute("fill","cualquier publicación");
 		}
 		
 		//Vamos a hacer la búsuqeda según lo que se ha introducido.

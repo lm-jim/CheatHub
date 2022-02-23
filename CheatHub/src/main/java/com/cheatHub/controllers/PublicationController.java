@@ -78,7 +78,7 @@ public class PublicationController {
 		}
 		
 		boolean tipoPubli;
-		if(tipo=="bug")
+		if(tipo.equals("bug"))
 			tipoPubli=true;
 		else tipoPubli=false;
 		Usuario userdef=servicioUsuario.getUsuarioByUsername("UsuarioPrueba1");	

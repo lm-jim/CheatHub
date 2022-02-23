@@ -13,9 +13,9 @@
 	<!--/publicacion/{idPublicacion} -->
 	<form  action = "/newpublicacion">
 		<p> TITULO </p>
-		<input type = 'text' name = 'titulo'/>
+		<input type = 'text' name = 'titulo' placeholder="Introduce título"/>
 		<p> DESCRIPCIÓN </p>
-		<textarea name="publicacion" rows="10" cols="40">Describe aquí tu publicación</textarea>
+		<textarea name="publicacion" rows="10" cols="40" placeholder="Describe tu publicación"></textarea>
 		
 		<p> TIPO PUBLICACIÓN </p>
 		<p>
@@ -33,7 +33,6 @@
 			{{/videojuegos}}
 		</ul>
 		</select>
-		<p> Nuevo juego (Introdúzcalo con el boton de abajo sólo si no aparece tu juego en la lista de arriba)</p>
 		
 		
 		<br>

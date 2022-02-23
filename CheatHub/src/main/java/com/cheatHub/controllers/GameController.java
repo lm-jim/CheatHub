@@ -57,6 +57,7 @@ public class GameController {
 	
 	@PostMapping("/nuevoVideojuego")
 	public String greetingNuevoVideojuego(Model model) {
+		model.addAttribute("notificacion", "");
 		List<Categoria> categorias = servicioCategoria.getAll();
 		model.addAttribute("categoria",categorias);
 		
@@ -65,15 +66,29 @@ public class GameController {
 	
 	@RequestMapping("/añadirVideojuego")
 	public String greetingAñadirVideojuego(Model model, @RequestParam String nombreVideojuego, String descripcionVideojuego, String categoriaVideojuego ) {
+		if(nombreVideojuego=="" || descripcionVideojuego=="" || categoriaVideojuego==null) {
+			model.addAttribute("notificacion", "Por favor, rellena todos los campos");
+			List<Categoria> categorias = servicioCategoria.getAll();
+			model.addAttribute("categoria",categorias);
+			return "añadirJuego";
+		}
 		if(!servicioVideojuego.existeVideojuego(nombreVideojuego)) {
 			Categoria categoria;
 			categoria=servicioCategoria.getCategoriaByName(categoriaVideojuego);
 			Videojuego videojuego=new Videojuego(nombreVideojuego,descripcionVideojuego,categoria);
 			servicioVideojuego.guardarVideojuego(videojuego);
 					
+		}else {
+			model.addAttribute("notificacion", "Por favor, introduzca un juego que no exista");
+			List<Categoria> categorias = servicioCategoria.getAll();
+			model.addAttribute("categoria",categorias);
+			return "añadirJuego";
 		}
 		
-		return "añadirJuego";
+		List<Videojuego> videojuegos = servicioVideojuego.getAll();
+		model.addAttribute("videojuegos",videojuegos);
+		
+		return "publicarPost";
 	}
 	
 	@RequestMapping("/seguirVideojuego/{videojuego}")

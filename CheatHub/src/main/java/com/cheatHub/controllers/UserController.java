@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.cheatHub.entities.Usuario;
 import com.cheatHub.repositories.RepositorioUsuario;
@@ -28,7 +29,7 @@ public class UserController {
 
 	@GetMapping("/login")
 	public String login(Model model) {
-
+		
 		return "login";
 	}
 
@@ -77,12 +78,9 @@ public class UserController {
 	public String userPage(Model model, @RequestParam String userName, String password, String birthdate, String realName, String descryption, String url, String boton) {
 		if (userName == "" || password == "") { // No se han introducido datos
 			model.addAttribute("notificacion", "Por favor, introduce nombre y contraseña.");
-			if (boton.equals("Iniciar sesión"))
-				return "login"; // Deberiamos de devolver a la página de la que venimos
-			else
 				return "createaccount";
 		} 
-		else if(servicioUsuarios.existeUsername(userName) && !boton.equals("Iniciar sesión")) {
+		else if(servicioUsuarios.existeUsername(userName)) {
 			model.addAttribute("notificacion", "El nombre de usuario ya existe. Por favor, seleccione otro nombre.");
 			return "createaccount";
 		}
@@ -130,7 +128,57 @@ public class UserController {
 		model.addAttribute("notificacion", "El usuario \""+userName+"\" ha sido registrado correctamente.");
 		return "redirect:/user/"+userName;
 	}
+	
+	@RequestMapping("/IniciarSesion")
+	public String userPage(Model model, @RequestParam String userName, String password) {
+		
+		if(userName=="" || password=="") {
+			model.addAttribute("notificacion", "Por favor, introduce nombre y contraseña.");
+			return "login";
+		}
+		//Ver que hacemos con la excepcion
+		
+		try {
+			Usuario u = servicioUsuarios.getUsuarioByUsername(userName);
+				
+			if(!u.getContraseña().equals(password)) {
+				model.addAttribute("notificacion", "Usuario y contraseña incorrecta");
+				return "login";
+			}
+			
+			model.addAttribute("usuario", u.getNombreUsuario());
+			if (u.getNombreReal() != null)
+				model.addAttribute("nombre", u.getNombreReal());
+			else
+				model.addAttribute("nombre", "-");
+			if (u.getFechaNacimiento() != null)
+				model.addAttribute("fechaNacimiento",u.getFechaNacimiento());
+			else
+				model.addAttribute("fechaNacimiento", "-");
+			if (u.getDescripcion() != null)
+				model.addAttribute("Descripcion", u.getDescripcion());
+			else
+				model.addAttribute("Descripcion", "-");
+			if (u.getAvatar() != null)
+				model.addAttribute("imagen", u.getAvatar());
+			else
+				model.addAttribute("imagen", "");
+			
+			model.addAttribute("publicaciones", u.getListaPublicaciones());
+			
+			model.addAttribute("notificacion", "Datos correctos.");
+			
+			return "redirect:/user/"+userName;
+		}catch(ResponseStatusException ex) {
+			model.addAttribute("notificacion", "Usuario y contraseña incorrecta");
+			return "login";
+		}
+		
+	}
+	
 }
+
+
 
 /*
  * <h2>{{usuario}}</h2> <h4>{{nombre}}</h4> <h4>{{fechaNacimiento}}</4>
