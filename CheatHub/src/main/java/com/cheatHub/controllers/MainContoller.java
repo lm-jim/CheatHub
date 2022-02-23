@@ -51,13 +51,16 @@ public class MainContoller {
 			filtrarjuego=true;
 			model.addAttribute("videojuego","del videojuego "+juego);
 		}
-		if(!filtro.equals("trucos,bugs") && filtro!=null ) {
-			filtrarTipo=true;
-			model.addAttribute("fill",filtro);
-		}
-		else {
+		
+		if(filtro==null || filtro.equals("trucos,bugs")   ) {
+
 			filtrarTipo=false;
 			model.addAttribute("fill","cualquier publicación");
+			
+		}
+		else {
+			filtrarTipo=true;
+			model.addAttribute("fill",filtro);
 		}
 		
 		//Vamos a hacer la búsuqeda según lo que se ha introducido.

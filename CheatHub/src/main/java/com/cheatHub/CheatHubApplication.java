@@ -57,7 +57,7 @@ public class CheatHubApplication {
 		Videojuego vDeadByDaylight = new Videojuego("Dead By Daylight", "Dead by Daylight es un videojuego multijugador en línea de 1 contra 4, en el que cuatro jugadores toman el papel de supervivientes y uno el de asesino.", cTerror);
 		Videojuego vMonsterHunter = new Videojuego("Monster Hunter","Un juego que va de cazar monstruos y mejorar tu equipamiento",cAccion);
 		Videojuego vCrabGame = new Videojuego("Crab Game","Un juego parodia de la serie del Juego del Calamar en el que puedes pasartelo bien",cSimulacion);
-		Videojuego vFornite = new Videojuego("Fortnite","Un juego shooter en que tendras que sobrevivir con las armas y materiales que encuentres",cShooter);
+		Videojuego vFornite = new Videojuego("Fornite","Un juego shooter en que tendras que sobrevivir con las armas y materiales que encuentres",cShooter);
 
 		repositorioVideojuegos.save(vPathogen);
 		repositorioVideojuegos.save(vSims);

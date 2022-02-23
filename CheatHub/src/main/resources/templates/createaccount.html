@@ -16,7 +16,7 @@
 	{{/notificacion}}
 	<form action = "registerUser">
 		<p> Usuario:</p>
-		<input type = 'text' name = 'userName' placeholder="Obligatorio"/>
+		<input type = 'text' name = 'userName' placeholder="{{textoNombre}}"/>
 		<p> Contraseña:</p>
 		<input type = 'password' name = 'password' placeholder="Obligatorio"/>
 		<p> Fecha de Nacimiento:</p>
@@ -29,8 +29,7 @@
 		<input type = 'url' name = 'url'/>
 		
 		<br>
-		
-		<input type = 'submit' name = 'boton' value='Crear Usuario'/>
+		<button type="submit" name="boton" value="{{valorBoton}}">{{texto}}</button>
 	</form>
 	<hr>
 	

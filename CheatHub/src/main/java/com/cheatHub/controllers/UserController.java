@@ -26,6 +26,8 @@ public class UserController {
 
 	@Autowired
 	ServicioUsuario servicioUsuarios;
+	@Autowired
+	RepositorioUsuario repUsuario;
 
 	@GetMapping("/login")
 	public String login(Model model) {
@@ -35,6 +37,18 @@ public class UserController {
 
 	@GetMapping("/newAccount")
 	public String newAccount(Model model) {
+			model.addAttribute("valorBoton","Crear Usuario");
+			model.addAttribute("valorBoton","Obligatorio");
+			model.addAttribute("texto","Crear Usuario");
+		
+		return "createaccount";
+	}
+	
+	@GetMapping("/editarUsuario")
+	public String editarUsuario(Model model, @RequestParam String boton) {
+		model.addAttribute("valorBoton",boton); //Sería el usuario
+		model.addAttribute("textoNombre","No modificar");
+		model.addAttribute("texto","Editar usuario");
 		return "createaccount";
 	}
 
@@ -76,57 +90,115 @@ public class UserController {
 	
 	@RequestMapping("/registerUser")
 	public String userPage(Model model, @RequestParam String userName, String password, String birthdate, String realName, String descryption, String url, String boton) {
-		if (userName == "" || password == "") { // No se han introducido datos
-			model.addAttribute("notificacion", "Por favor, introduce nombre y contraseña.");
+		//Caso en el que hayamos llegado desde una creación de usuario
+		if(boton.equals("Crear Usuario")) {
+			System.out.println("------------------------------CREAMOS USUR");
+			if (userName == "" || password == "") { // No se han introducido datos
+				model.addAttribute("notificacion", "Por favor, introduce nombre y contraseña.");
+					return "createaccount";
+			} 
+			else if(servicioUsuarios.existeUsername(userName)) {
+				model.addAttribute("notificacion", "El nombre de usuario ya existe. Por favor, seleccione otro nombre.");
 				return "createaccount";
-		} 
-		else if(servicioUsuarios.existeUsername(userName)) {
-			model.addAttribute("notificacion", "El nombre de usuario ya existe. Por favor, seleccione otro nombre.");
-			return "createaccount";
-		}
-		else { // Todo en orden
-			if (boton.equals("Crear Usuario")) { // Venimos de un registro
-				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				try {
-					Date fechaNacimiento;
-					if(birthdate != "")
-						fechaNacimiento = dateFormat.parse(birthdate);
-					else
-						fechaNacimiento = null;
-					if(url == "")
-						url = "https://www.royalunibrew.com/wp-content/uploads/2021/07/blank-profile-picture-973460_640.png";
-					servicioUsuarios.registrarUsuario(new Usuario(userName, password, realName, descryption, fechaNacimiento, url)); // Añadimos el nuevo usuario a la BD
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
 			}
+			else { // Todo en orden
+					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					try {
+						Date fechaNacimiento;
+						if(birthdate != "")
+							fechaNacimiento = dateFormat.parse(birthdate);
+						else
+							fechaNacimiento = null;
+						if(url == "")
+							url = "https://www.royalunibrew.com/wp-content/uploads/2021/07/blank-profile-picture-973460_640.png";
+						servicioUsuarios.registrarUsuario(new Usuario(userName, password, realName, descryption, fechaNacimiento, url)); // Añadimos el nuevo usuario a la BD
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+			}
+
+			// Cargaríamos los datos de la BD del nombre de usuario correspondiente
+			model.addAttribute("usuario", userName);
+			if (realName != null)
+				model.addAttribute("nombre", realName);
+			else
+				model.addAttribute("nombre", "-");
+			if (birthdate != null)
+				model.addAttribute("fechaNacimiento", birthdate);
+			else
+				model.addAttribute("fechaNacimiento", "-");
+			if (descryption != null)
+				model.addAttribute("Descripcion", descryption);
+			else
+				model.addAttribute("Descripcion", "-");
+			if (url != null)
+				model.addAttribute("imagen", url);
+			else
+				model.addAttribute("imagen", "");
+
+			model.addAttribute("Publicaciones", "Ninguna");
+			model.addAttribute("notificacion", "El usuario \""+userName+"\" ha sido registrado correctamente.");
+			
+			return "redirect:/user/"+userName;
 		}
-
-		// Deberiamos de ver si venimos de login o create account, y cargamos de la Bd o
-		// guardamos el usuario en la BD.
-
-		// Cargaríamos los datos de la BD del nombre de usuario correspondiente
-		model.addAttribute("usuario", userName);
-		if (realName != null)
-			model.addAttribute("nombre", realName);
-		else
-			model.addAttribute("nombre", "-");
-		if (birthdate != null)
-			model.addAttribute("fechaNacimiento", birthdate);
-		else
-			model.addAttribute("fechaNacimiento", "-");
-		if (descryption != null)
-			model.addAttribute("Descripcion", descryption);
-		else
-			model.addAttribute("Descripcion", "-");
-		if (url != null)
-			model.addAttribute("imagen", url);
-		else
-			model.addAttribute("imagen", "");
-
-		model.addAttribute("Publicaciones", "Ninguna");
-		model.addAttribute("notificacion", "El usuario \""+userName+"\" ha sido registrado correctamente.");
-		return "redirect:/user/"+userName;
+		//Caso en el que estemos editando un usuario
+		else {
+			System.out.println("-------------------MODIFICAMOS USUR  ->>> "+ boton);
+			Usuario u = servicioUsuarios.getUsuarioByUsername(boton);
+			
+			System.out.println("-------------------ENCONTRADO ->>> "+ u);
+			
+			if(password!="") {
+				u.setContraseña(password);
+			}
+			if(birthdate!="") {
+				try {
+					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					Date fechaNacimiento = dateFormat.parse(birthdate);
+					u.setFechaNacimiento(fechaNacimiento);
+				}catch (ParseException e) {
+						e.printStackTrace();
+					}
+			}
+			if(realName!="") {
+				u.setNombreReal(realName);
+			}
+			if(descryption!="") {
+				u.setDescripcion(descryption);
+			}
+			if(url!="") {
+				u.setAvatar(url);
+			}
+			
+			
+			System.out.println("-------------------AÑADIMOS ATRIBUTOS ->>> "+ u);
+			model.addAttribute("notificacion","");
+			model.addAttribute("usuario", u.getNombreUsuario());
+			if (realName != null)
+				model.addAttribute("nombre", u.getNombreReal());
+			else
+				model.addAttribute("nombre", "-");
+			if (birthdate != null)
+				model.addAttribute("fechaNacimiento", u.getFechaNacimiento());
+			else
+				model.addAttribute("fechaNacimiento", "-");
+			if (descryption != null)
+				model.addAttribute("Descripcion", u.getDescripcion());
+			else
+				model.addAttribute("Descripcion", "-");
+			if (url != null)
+				model.addAttribute("imagen", u.getAvatar());
+			else
+				model.addAttribute("imagen", "");
+			
+			model.addAttribute("Publicaciones",u.getListaPublicaciones());
+			
+			repUsuario.save(u);
+			
+			return "redirect:/user/"+u.getNombreUsuario();
+		}
+		
+		
 	}
 	
 	@RequestMapping("/IniciarSesion")
