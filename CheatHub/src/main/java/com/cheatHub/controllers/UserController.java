@@ -37,9 +37,8 @@ public class UserController {
 	@GetMapping("/newAccount")
 	public String newAccount(Model model) {
 			model.addAttribute("valorBoton","Crear Usuario");
-			model.addAttribute("valorBoton","Obligatorio");
 			model.addAttribute("texto","Crear Usuario");
-		
+			model.addAttribute("textoNombre","Obligatorio");
 		return "createaccount";
 	}
 	
@@ -94,10 +93,16 @@ public class UserController {
 			System.out.println("------------------------------CREAMOS USUR");
 			if (userName == "" || password == "") { // No se han introducido datos
 				model.addAttribute("notificacion", "Por favor, introduce nombre y contraseña.");
-					return "createaccount";
+				model.addAttribute("valorBoton","Crear Usuario");
+				model.addAttribute("texto","Crear Usuario");
+				model.addAttribute("textoNombre","Obligatorio");
+				return "createaccount";
 			} 
 			else if(servicioUsuarios.existeUsername(userName)) {
 				model.addAttribute("notificacion", "El nombre de usuario ya existe. Por favor, seleccione otro nombre.");
+				model.addAttribute("valorBoton","Crear Usuario");
+				model.addAttribute("texto","Crear Usuario");
+				model.addAttribute("textoNombre","Obligatorio");
 				return "createaccount";
 			}
 			else { // Todo en orden
