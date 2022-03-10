@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.cheatHub.entities.Categoria;
-import com.cheatHub.entities.Usuario;
 import com.cheatHub.entities.Videojuego;
 import com.cheatHub.repositories.RepositorioVideojuego;
 

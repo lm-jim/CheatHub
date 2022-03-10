@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -37,6 +39,9 @@ public class Usuario {
 	@ManyToMany
 	private List<Videojuego> listaJuegosSeguidos;
 	
+	@ElementCollection(fetch = FetchType.EAGER)
+	private List<String> roles;
+	
 	public Usuario() {}
 	
 	public Usuario(String nombreUsuario, String contraseña) {
@@ -44,6 +49,7 @@ public class Usuario {
 		this.contraseña = contraseña;
 		this.fechaRegistro = new Date();
 		this.listaComentarios=new ArrayList<>();
+		this.listaPublicaciones=new ArrayList<>();
 		this.listaPublicaciones=new ArrayList<>();
 		this.avatar = "https://www.royalunibrew.com/wp-content/uploads/2021/07/blank-profile-picture-973460_640.png";
 	}
@@ -58,6 +64,7 @@ public class Usuario {
 		this.descripcion=descripcion;
 		this.fechaNacimiento=fechaNacimiento;
 		this.avatar = avatar;
+		this.roles=List.of("USER");
 	}
 	
 	public String getAvatar() {
@@ -164,4 +171,13 @@ public class Usuario {
 	public String toString() {
 		return nombreUsuario;
 	}
+
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
+	}
+	
 }
