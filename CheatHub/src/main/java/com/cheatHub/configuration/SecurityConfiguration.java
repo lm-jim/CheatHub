@@ -43,14 +43,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/logout").permitAll();
 		http.authorizeRequests().antMatchers("/search").permitAll();
 		http.authorizeRequests().antMatchers("/buscarUsuario").permitAll();
-		http.authorizeRequests().antMatchers("/registerUser").permitAll();
-
+		http.authorizeRequests().antMatchers("/newAccount").permitAll();
+		http.authorizeRequests().antMatchers("/juego/**").permitAll();
+		http.authorizeRequests().antMatchers("/category/**").permitAll();
+		http.authorizeRequests().antMatchers("/publicacion/**").permitAll();
+		http.authorizeRequests().antMatchers("/user/**").permitAll();
+		
 		// /* significando cualquier ruta
-
-		http.authorizeRequests().antMatchers("/juego/*").permitAll();
-		http.authorizeRequests().antMatchers("/category/*").permitAll();
-		http.authorizeRequests().antMatchers("/publicacion/*").permitAll();
-		http.authorizeRequests().antMatchers("/user/*").permitAll();
 
 		// Private pages (all other pages)
 		http.authorizeRequests().anyRequest().authenticated();

@@ -84,7 +84,7 @@ public class MainContoller {
 		return "busqueda";
 	}
 	
-	@RequestMapping("/category/{category}")
+	@GetMapping("/category/{category}")
 	public String greetingCategory(Model model, @PathVariable String category) {
 		
 			model.addAttribute("fill",category);
