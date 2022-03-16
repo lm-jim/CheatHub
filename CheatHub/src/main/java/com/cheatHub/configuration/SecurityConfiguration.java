@@ -19,15 +19,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	RepositoryUserDetailsService userDetailsService;
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder(10, new SecureRandom());
-	}
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
 	}
 	 
 	
@@ -39,12 +37,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/login").permitAll();
 		http.authorizeRequests().antMatchers("/iniciarSesion").permitAll(); // CAMBIAR O BORRAR CONTROLADOR
 																			
-// http.authorizeRequests().antMatchers("/loginerror").permitAll();
+        http.authorizeRequests().antMatchers("/loginerror").permitAll();
+        http.authorizeRequests().antMatchers("/registerUser").permitAll();
 		http.authorizeRequests().antMatchers("/logout").permitAll();
 		http.authorizeRequests().antMatchers("/search").permitAll();
 		http.authorizeRequests().antMatchers("/buscarUsuario").permitAll();
 		http.authorizeRequests().antMatchers("/newAccount").permitAll();
-		http.authorizeRequests().antMatchers("/juego/**").permitAll();
+		http.authorizeRequests().antMatchers("/juego/**").permitAll();  //REVISAR LAS URL DINÁMICAS
 		http.authorizeRequests().antMatchers("/category/**").permitAll();
 		http.authorizeRequests().antMatchers("/publicacion/**").permitAll();
 		http.authorizeRequests().antMatchers("/user/**").permitAll();
@@ -53,6 +52,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		// Private pages (all other pages)
 		http.authorizeRequests().anyRequest().authenticated();
+		//http.authorizeRequests().anyRequest().hasAnyRole("USER");
+		
 		// Login form
 		http.formLogin().loginPage("/login");
 		http.formLogin().usernameParameter("userName");

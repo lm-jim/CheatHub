@@ -7,10 +7,11 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.cheatHub.entities.*;
 import com.cheatHub.repositories.*;
+import com.cheatHub.services.ServicioUsuario;
 
 @SpringBootApplication
 public class CheatHubApplication {
@@ -19,8 +20,14 @@ public class CheatHubApplication {
 	RepositorioCategoria repositorioCategorias;
 	@Autowired
 	RepositorioVideojuego repositorioVideojuegos;
+	
+	@Autowired
+	ServicioUsuario servicioUsuarios;
+	/*
 	@Autowired
 	RepositorioUsuario repositorioUsuarios;
+	*/
+	
 	@Autowired
 	RepositorioPublicacion repositorioPublicaciones;
 	@Autowired
@@ -69,22 +76,29 @@ public class CheatHubApplication {
 		repositorioVideojuegos.save(vCrabGame);
 		repositorioVideojuegos.save(vFornite);
 		
-		Usuario user = new Usuario("Sirio120", "12345", "Luismi", "Me gustan las estrellas", new Date(), "http://skyandtelescope.org/wp-content/uploads/Sirius-B-Fabio-v2.jpg");
+		Usuario user = new Usuario("Sirio120","12345", "Luismi", "Me gustan las estrellas", new Date(), "http://skyandtelescope.org/wp-content/uploads/Sirius-B-Fabio-v2.jpg");
 		Usuario userJ = new Usuario("Juanmita_","abcd", "Juanma", "Me gusta Naruto", new Date(), "https://studiosol-a.akamaihd.net/uploadfile/letras/fotos/2/5/7/4/2574f9070ce48b988fe2693a60c40427.jpg");
 		Usuario userV = new Usuario("ViRo","qwerty","Ismael","Me gusta Star Wars",new Date(),"https://www.xtrafondos.com/descargar.php?id=5495&vertical=1.jpg");
-
-
-		repositorioUsuarios.save(user);
-		repositorioUsuarios.save(userJ);
-		repositorioUsuarios.save(userV);
 		
 		Usuario user1 = new Usuario("UsuarioPrueba1","pass1");
 		Usuario user2 = new Usuario("UsuarioPrueba2","pass2");
 		Usuario user3 = new Usuario("UsuarioPrueba3","pass3");
-		
+		/*
+		repositorioUsuarios.save(user);
+		repositorioUsuarios.save(userJ);
+		repositorioUsuarios.save(userV);
 		repositorioUsuarios.save(user1);
 		repositorioUsuarios.save(user2);
 		repositorioUsuarios.save(user3);
+		*/
+		
+		servicioUsuarios.registrarUsuario(user);
+		servicioUsuarios.registrarUsuario(userJ);
+		servicioUsuarios.registrarUsuario(userV);
+		servicioUsuarios.registrarUsuario(user1);
+		servicioUsuarios.registrarUsuario(user2);
+		servicioUsuarios.registrarUsuario(user3);
+		
 		
 		Publicacion publi = new Publicacion("Pathogen: bug patogenos infinitos", "Jugando con el virus, dividelo hasta obtener la cepa resistente al clima y multiplicalo para superar el limite de 2000 patogenos.", true, user, vPathogen);
 		Publicacion publicacionJ1 = new Publicacion("Dinero infinito", "Si pulsas Ctrl + Shift + C se abre una consola, y si escribes \"motherlode\" ganarás 50.000 Simoleones al instante ", false , userJ, vSims);

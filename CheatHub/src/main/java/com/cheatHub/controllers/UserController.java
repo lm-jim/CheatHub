@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,9 +27,12 @@ public class UserController {
 
 	@Autowired
 	ServicioUsuario servicioUsuarios;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 
-	@GetMapping("/login")
+	/*@GetMapping("/iniciarSesion")
 	public String login(Model model, HttpServletRequest request) {
 		
 		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
@@ -36,6 +40,7 @@ public class UserController {
 		
 		return "login";
 	}
+	*/
 
 	@GetMapping("/newAccount")
 	public String newAccount(Model model) {
@@ -118,7 +123,7 @@ public class UserController {
 							fechaNacimiento = null;
 						if(url == "")
 							url = "https://www.royalunibrew.com/wp-content/uploads/2021/07/blank-profile-picture-973460_640.png";
-						servicioUsuarios.registrarUsuario(new Usuario(userName, password, realName, descryption, fechaNacimiento, url)); // Añadimos el nuevo usuario a la BD
+						servicioUsuarios.registrarUsuario(new Usuario(userName, passwordEncoder.encode(password), realName, descryption, fechaNacimiento, url)); // Añadimos el nuevo usuario a la BD
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
@@ -208,9 +213,12 @@ public class UserController {
 		
 	}
 	
-	@RequestMapping("/iniciarSesion")
-	public String userPage(Model model, @RequestParam String userName, String password) {
+	@RequestMapping("/login")
+	//public String userPage(Model model, @RequestParam String userName, String password) {
 		
+	public String userPage(Model model) {
+		
+		/*
 		if(userName=="" || password=="") {
 			model.addAttribute("notificacion", "Por favor, introduce nombre y contraseña.");
 			return "login";
@@ -252,6 +260,26 @@ public class UserController {
 			model.addAttribute("notificacion", "Usuario y contraseña incorrecta");
 			return "login";
 		}
+		*/
+		
+		//CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+		//model.addAttribute("token", token.getToken()); 
+		model.addAttribute("notificacion", ""); 
+		return "login";
+		
+	}
+	
+	
+	@RequestMapping("/loginerror")
+	//public String userPage(Model model, @RequestParam String userName, String password) {
+		
+	public String loginerror(Model model,HttpServletRequest request) {
+		
+		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+		model.addAttribute("token", token.getToken()); 
+		model.addAttribute("notificacion", "Error autentificación"); 
+		
+		return "login";
 		
 	}
 	

@@ -10,12 +10,14 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Usuario {
-
+	
+	
 	@Id
 	private String nombreUsuario;
 	

@@ -3,6 +3,8 @@ package com.cheatHub.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -102,7 +104,7 @@ public class MainContoller {
 	}
 
 	@GetMapping("/")
-	public String greetingCond(Model model) {
+	public String greetingCond(Model model, HttpServletRequest request) {
 		List<Categoria> categorias = servicioCategoria.getAll();
 		List<Videojuego> juegos = servicioVideojuego.getAll();
 		model.addAttribute("videojuegos",juegos);
