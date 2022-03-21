@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -109,6 +110,13 @@ public class MainContoller {
 		List<Videojuego> juegos = servicioVideojuego.getAll();
 		model.addAttribute("videojuegos",juegos);
 		model.addAttribute("categorias",categorias);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println("*-----------*---------*---------"+principal.toString());
+		if(principal.toString().equals("anonymousUser")) {
+			model.addAttribute("loggeado",true);
+		}else {
+			model.addAttribute("loggeado",false);
+		}
 		return "index";
 	}
 	

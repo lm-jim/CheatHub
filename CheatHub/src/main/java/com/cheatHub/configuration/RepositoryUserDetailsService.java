@@ -21,8 +21,6 @@ import com.cheatHub.services.ServicioUsuario;
 @Service
 public class RepositoryUserDetailsService implements UserDetailsService {
 	
-	
-	
 	@Autowired
 	private ServicioUsuario userService;
 

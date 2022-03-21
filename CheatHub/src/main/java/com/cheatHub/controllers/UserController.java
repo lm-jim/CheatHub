@@ -9,6 +9,8 @@ import java.text.SimpleDateFormat;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
@@ -52,10 +54,18 @@ public class UserController {
 	
 	@GetMapping("/editarUsuario")
 	public String editarUsuario(Model model, @RequestParam String boton) {
-		model.addAttribute("valorBoton",boton); //Sería el usuario
-		model.addAttribute("textoNombre","No modificar");
-		model.addAttribute("texto","Editar usuario");
-		return "createaccount";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails uloggeado = (UserDetails) principal;
+		
+		if(uloggeado.getUsername().equals(boton)) {
+			model.addAttribute("valorBoton",boton); //Sería el usuario
+			model.addAttribute("textoNombre","No modificar");
+			model.addAttribute("texto","Editar usuario");
+			return "createaccount";
+		}
+		else {
+			return "redirect:/user/"+boton;
+		}
 	}
 
 	@GetMapping("/buscarUsuario")

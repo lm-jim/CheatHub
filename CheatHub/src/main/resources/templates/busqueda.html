@@ -14,7 +14,8 @@
 <ul>
 	{{#publicaciones}}
 		{{titulo}}
-		<form method='post' action = "/publicacion/{{idPublicacion}}">  
+		<!-- <form method='post' action = "/publicacion/{{idPublicacion}}">   -->
+		<form action = "/publicacion/{{idPublicacion}}">  
 		<button type="submit" name="boton" value="{{idPublicacion}}">Ir</button>
 		</form>
 	

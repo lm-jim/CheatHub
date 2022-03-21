@@ -11,14 +11,13 @@
 	<h1>CHEATHUB</h1>
 	<hr>
 	<a href="/" class="inicio">Volver Inicio</a>
-	<h5>{{notificacion}}</h5>
-	<form method='post' action = "/login">
+	
+	<form method='POST' action = "/login">
 		<p> Introduzca su nombre o id:</p>
 		<input type = 'text' name = 'userName'/>
 		<p> Introduzca su contraseña:</p>
 		<input type = 'password' name = 'password'/>
 		<br>
-		<input type="hidden" name="_csrf" value="{{token}}"/>
 		
 		<input type = 'submit' name = 'boton' value='Iniciar sesión'/>
 	</form>

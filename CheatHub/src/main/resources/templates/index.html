@@ -21,7 +21,8 @@
 	<ul >
 		
 			{{#categorias}}
-			<form  method='post' action = "/category/{{nombreCategoria}}" class="categoria">
+			<!-- <form  method='post' action = "/category/{{nombreCategoria}}" class="categoria"> -->
+			<form  action = "/category/{{nombreCategoria}}" class="categoria">
 				<button type="submit" name="boton" value="{{nombreCategoria}}">{{nombreCategoria}}</button>
 			</form>
 			{{/categorias}}
@@ -53,9 +54,16 @@
 	</form>
 	<hr>
 	<p>
-	<form action = "login">
-		<input type = 'submit' name = 'Loggin' value='Iniciar sesión'/>
+	{{#loggeado}}
+		<form action = "login">
+			<input type = 'submit' name = 'Loggin' value='Iniciar sesión'/>
+		</form>
+	{{/loggeado}}
+	{{^loggeado}}
+	<form method='post' action = "logout">
+		<input type = 'submit' name = 'logout' value='Cerrar sesion'/>
 	</form>
+	{{/loggeado}}
 	<form action = "newAccount">
 		<input type = 'submit' name = 'Loggin' value='Crear cuenta'/>
 	</form>
@@ -64,9 +72,7 @@
 		<input type = 'submit' name = 'Nueva Publicación' value='Nueva publicacion'/>
 	</form>
 	
-	<form method='post' action = "logout">
-		<input type = 'submit' name = 'logout' value='Cerrar sesion'/>
-	</form>
+	
 	
 </body>
 </html>

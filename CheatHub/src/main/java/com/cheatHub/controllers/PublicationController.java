@@ -2,7 +2,11 @@ package com.cheatHub.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,7 +71,7 @@ public class PublicationController {
 	}
 	
 	@RequestMapping("/newpublicacion")
-	public String greetingnuevaPublicacion(Model model, @RequestParam String titulo, String publicacion,String juego,String tipo) {
+	public String greetingnuevaPublicacion(Model model, HttpSession session, @RequestParam String titulo, String publicacion,String juego,String tipo) {
 		
 		if(titulo=="" || publicacion==""||tipo==null ) {
 			List<Videojuego> videojuegos = servicioVideojuego.getAll();
@@ -79,7 +83,15 @@ public class PublicationController {
 		if(tipo.equals("bug"))
 			tipoPubli=true;
 		else tipoPubli=false;
-		Usuario userdef=servicioUsuario.getUsuarioByUsername("UsuarioPrueba1");	
+		
+		//HAY Q	UE OBTENER EL USUARIO QUE HA INICIADO SESION
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails uloggeado = (UserDetails) principal;
+		System.out.println("---exito--");
+		System.out.println(uloggeado.getUsername());
+		
+		Usuario userdef=servicioUsuario.getUsuarioByUsername(uloggeado.getUsername());	
 		Videojuego juegoP= servicioVideojuego.getVideojuegoPorNombre(juego);
 		Publicacion nuevaPublicacion=new Publicacion(titulo,publicacion,tipoPubli,userdef,juegoP);
 		servicioPublicacion.guardarPublicacion(nuevaPublicacion);
@@ -133,14 +145,27 @@ public class PublicationController {
 	@RequestMapping("/editarPublicacion")
 	public String editarPublicacion(Model model,@RequestParam String boton){
 		Publicacion publi=servicioPublicacion.getPublicacionPorId(Integer.parseInt(boton));
-		servicioPublicacion.borrarPublicacion(publi);
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails uloggeado = (UserDetails) principal;
+		
+		if(uloggeado.getUsername().equals(publi.getUsername().getNombreUsuario())) {
+			
+			System.out.println("-----------------TRUE");
+			servicioPublicacion.borrarPublicacion(publi);
+			
+			
+			List<Categoria> categorias = servicioCategoria.getAll();
+			List<Videojuego> juegos = servicioVideojuego.getAll();
+			model.addAttribute("videojuegos",juegos);
+			model.addAttribute("categorias",categorias);
+			return "index";
+		}
+		else {
+			return "redirect:/publicacion/"+publi.getPublicacion();
+		}
 		
 		
-		List<Categoria> categorias = servicioCategoria.getAll();
-		List<Videojuego> juegos = servicioVideojuego.getAll();
-		model.addAttribute("videojuegos",juegos);
-		model.addAttribute("categorias",categorias);
-		return "index";
 			
 	}
 	

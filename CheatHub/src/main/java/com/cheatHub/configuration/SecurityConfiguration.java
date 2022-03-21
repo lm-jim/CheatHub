@@ -36,7 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/").permitAll();
 		http.authorizeRequests().antMatchers("/login").permitAll();
 		http.authorizeRequests().antMatchers("/iniciarSesion").permitAll(); // CAMBIAR O BORRAR CONTROLADOR
-																			
+		http.authorizeRequests().antMatchers("/css/estilo.css").permitAll();																	
         http.authorizeRequests().antMatchers("/loginerror").permitAll();
         http.authorizeRequests().antMatchers("/registerUser").permitAll();
 		http.authorizeRequests().antMatchers("/logout").permitAll();
@@ -59,13 +59,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.formLogin().usernameParameter("userName");
 		http.formLogin().passwordParameter("password");
 		http.formLogin().defaultSuccessUrl("/");
-		http.formLogin().failureUrl("/loginerror");
+		//http.formLogin().failureUrl("/loginerror");
 		// Logout
 		http.logout().logoutUrl("/logout");
 		http.logout().logoutSuccessUrl("/");
 
 		// Disable CSRF at the moment
-		//http.csrf().disable();
+		http.csrf().disable();
 	}
 
 }
