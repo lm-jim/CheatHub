@@ -105,7 +105,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("/registerUser")
-	public String userPage(Model model, @RequestParam String userName, String password, String birthdate, String realName, String descryption, String url, String boton) {
+	public String userPage(Model model, @RequestParam String userName, String password,String correo, String birthdate, String realName, String descryption, String url, String boton) {
 		//Caso en el que hayamos llegado desde una creación de usuario
 		if(boton.equals("Crear Usuario")) {
 			System.out.println("------------------------------CREAMOS USUR");
@@ -133,13 +133,17 @@ public class UserController {
 							fechaNacimiento = null;
 						if(url == "")
 							url = "https://www.royalunibrew.com/wp-content/uploads/2021/07/blank-profile-picture-973460_640.png";
-						servicioUsuarios.registrarUsuario(new Usuario(userName, passwordEncoder.encode(password), realName, descryption, fechaNacimiento, url)); // Añadimos el nuevo usuario a la BD
+						servicioUsuarios.registrarUsuario(new Usuario(userName, password,correo, realName, descryption, fechaNacimiento, url)); // Añadimos el nuevo usuario a la BD
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
 			}
+			Usuario user=servicioUsuarios.getUsuarioByUsername(userName);
+			model.addAttribute("nombreUsuario", user.getNombreUsuario());
+			System.out.println(user.getNombreUsuario());
 
 			// Cargaríamos los datos de la BD del nombre de usuario correspondiente
+			/*
 			model.addAttribute("usuario", userName);
 			if (realName != null)
 				model.addAttribute("nombre", realName);
@@ -160,8 +164,8 @@ public class UserController {
 
 			model.addAttribute("Publicaciones", "Ninguna");
 			model.addAttribute("notificacion", "El usuario \""+userName+"\" ha sido registrado correctamente.");
-			
-			return "redirect:/user/"+userName;
+			*/
+			return "/login";
 		}
 		//Caso en el que estemos editando un usuario
 		else {
@@ -224,8 +228,6 @@ public class UserController {
 	}
 	
 	@RequestMapping("/login")
-	//public String userPage(Model model, @RequestParam String userName, String password) {
-		
 	public String userPage(Model model) {
 		
 		/*
@@ -280,9 +282,7 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping("/loginerror")
-	//public String userPage(Model model, @RequestParam String userName, String password) {
-		
+	@RequestMapping("/loginerror")	
 	public String loginerror(Model model,HttpServletRequest request) {
 		
 		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
@@ -295,9 +295,3 @@ public class UserController {
 	
 }
 
-
-
-/*
- * <h2>{{usuario}}</h2> <h4>{{nombre}}</h4> <h4>{{fechaNacimiento}}</4>
- * <h4>{{Descripcion}}</h4> <p>{{Publicaciones}}</p>
- */

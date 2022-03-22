@@ -111,11 +111,18 @@ public class PublicationController {
 	public String añadirComentario(Model model, @RequestParam String contenido,String titulo) {
 		
 		Publicacion publi=servicioPublicacion.getPublicacionPorNombre(titulo);
-		Usuario user=servicioUsuario.getUsuarioByUsername("UsuarioPrueba1");
-		Comentario comentario=new Comentario(contenido,user,publi);
-		publi.addComentario(comentario);
-		servicioComentario.guardarComentario(comentario);
 		
+		//HAY Q	UE OBTENER EL USUARIO QUE HA INICIADO SESION
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails uloggeado = (UserDetails) principal;		
+		Usuario userdef=servicioUsuario.getUsuarioByUsername(uloggeado.getUsername());
+		
+		if(contenido!="") {
+			Comentario comentario=new Comentario(contenido,userdef,publi);
+			publi.addComentario(comentario);
+			servicioComentario.guardarComentario(comentario);
+		}
 		model.addAttribute("titulo",publi.getTitulo());
 		model.addAttribute("juego",publi.getVideojuego());
 		model.addAttribute("publicacion",publi.getDescripcion());

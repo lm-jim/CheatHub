@@ -58,15 +58,21 @@
 		<form action = "login">
 			<input type = 'submit' name = 'Loggin' value='Iniciar sesión'/>
 		</form>
+		<form action = "newAccount">
+		<input type = 'submit' name = 'Loggin' value='Crear cuenta'/>
+		
+	</form>
 	{{/loggeado}}
 	{{^loggeado}}
 	<form method='post' action = "logout">
 		<input type = 'submit' name = 'logout' value='Cerrar sesion'/>
 	</form>
-	{{/loggeado}}
-	<form action = "newAccount">
-		<input type = 'submit' name = 'Loggin' value='Crear cuenta'/>
+	
+	<form method='get' action = "user/{{nombreUsuario}}">
+		<input type = 'submit' name = 'Visitar perfil' value='Visitar perfil'/>
 	</form>
+	{{/loggeado}}
+	
 	</p>
 	<form method='post' action = "nuevaPublicacion">
 		<input type = 'submit' name = 'Nueva Publicación' value='Nueva publicacion'/>

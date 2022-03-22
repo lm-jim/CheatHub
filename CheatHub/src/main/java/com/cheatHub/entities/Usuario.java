@@ -31,6 +31,7 @@ public class Usuario {
 	private String avatar; //URL (?)
 	private String nombreReal;
 	private String descripcion;
+	private String correo;
 	
 	@OneToMany(mappedBy="usuario",cascade=CascadeType.ALL)
 	private List<Comentario> listaComentarios;
@@ -46,9 +47,10 @@ public class Usuario {
 	
 	public Usuario() {}
 	
-	public Usuario(String nombreUsuario, String contraseña) {
+	public Usuario(String nombreUsuario, String contraseña,String correo) {
 		this.nombreUsuario = nombreUsuario;
 		this.contraseña = contraseña;
+		this.correo=correo;
 		this.fechaRegistro = new Date();
 		this.listaComentarios=new ArrayList<>();
 		this.listaPublicaciones=new ArrayList<>();
@@ -56,9 +58,10 @@ public class Usuario {
 		this.avatar = "https://www.royalunibrew.com/wp-content/uploads/2021/07/blank-profile-picture-973460_640.png";
 	}
 	
-	public Usuario(String nombreUsuario,String contraseña, String nombreReal,String descripcion,Date fechaNacimiento, String avatar) {
+	public Usuario(String nombreUsuario,String contraseña,String correo, String nombreReal,String descripcion,Date fechaNacimiento, String avatar) {
 		this.nombreUsuario = nombreUsuario;
 		this.contraseña = contraseña;
+		this.correo=correo;
 		this.fechaRegistro = new Date();
 		this.listaComentarios=new ArrayList<>();
 		this.listaPublicaciones=new ArrayList<>();
@@ -91,6 +94,15 @@ public class Usuario {
 
 	public void setContraseña(String contraseña) {
 		this.contraseña = contraseña;
+	}
+
+	
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 
 	public Date getFechaRegistro() {
