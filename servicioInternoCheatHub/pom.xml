@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cheathub</groupId>
-	<artifactId>CheatHub</artifactId>
+	<artifactId>servicioInternoCheatHub</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>CheatHub</name>
 	<description>Pagina web cheatHub</description>
@@ -47,11 +47,6 @@
  			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
  		</dependency>
- 		<dependency>
-			<groupId>org.springframework.amqp</groupId>
-			<artifactId>spring-rabbit-test</artifactId>
-			<scope>test</scope>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>

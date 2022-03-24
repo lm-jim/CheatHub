@@ -1,20 +1,29 @@
 package com.cheatHub.services;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.cheatHub.entities.Usuario;
 import com.cheatHub.repositories.RepositorioUsuario;
+import com.fasterxml.jackson.databind.ser.std.ArraySerializerBase;
 
 @Service
 public class ServicioUsuario {
@@ -63,6 +72,21 @@ public class ServicioUsuario {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		usuario.setContraseña(passwordEncoder .encode(usuario.getContraseña()));
 		repositorioUsuarios.save(usuario);
+		
+		//NOTIFICACION POR EMAIL
+		
+		String url = "http://localhost:8080/notificacionNuevoRegistro";
+		
+		HttpHeaders header = new HttpHeaders();
+		header.setContentType(MediaType.APPLICATION_JSON);
+		
+		List<String> body = new ArrayList<>();
+		body.add(usuario.getNombreUsuario());
+		body.add(usuario.getCorreo());
+		
+		HttpEntity<List> entity = new HttpEntity<>(body, header);
+		new RestTemplate().postForEntity(url, entity, String.class);
+		
 	}
 	
 }

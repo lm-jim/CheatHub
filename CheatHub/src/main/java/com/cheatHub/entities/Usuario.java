@@ -1,5 +1,6 @@
 package com.cheatHub.entities;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -69,7 +70,9 @@ public class Usuario {
 		this.descripcion=descripcion;
 		this.fechaNacimiento=fechaNacimiento;
 		this.avatar = avatar;
-		this.roles=List.of("USER");
+		this.roles = new ArrayList<>();
+		this.roles.add("USER");
+		this.roles = Collections.unmodifiableList(this.roles);
 	}
 	
 	public String getAvatar() {
