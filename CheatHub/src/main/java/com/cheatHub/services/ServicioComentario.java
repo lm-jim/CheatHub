@@ -42,7 +42,7 @@ public class ServicioComentario {
 		body.add(comentario.getUsuario().getNombreUsuario());
 		body.add(comentario.getPublicacion().getTitulo());
 		body.add(comentario.getContenidoComentario());
-		body.add(comentario.getPublicacion().getUsername().getNombreUsuario());
+		body.add(comentario.getPublicacion().getUsername().getCorreo());
 		
 		HttpEntity<List> entity = new HttpEntity<>(body, header);
 		new RestTemplate().postForEntity(url, entity, String.class);

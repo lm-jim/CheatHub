@@ -1,8 +1,11 @@
 package servicioInternoCheatHub;
-//import servicioInternoCheatHub.services.EmailService;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
 public class ServicioInternoCheatHub {
 	public static void main(String[] args) {
-		//new EmailService().mandarEmail("Prueba","Este es un email para comprobar que los emails se envian y reciben correctamente.","usuarioGenerico@gmail.com");
+		SpringApplication.run(ServicioInternoCheatHub.class, args);
 	}
 }

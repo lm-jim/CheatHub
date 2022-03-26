@@ -68,7 +68,7 @@ public class ServicioPublicacion {
 		for(Usuario cUser : publicacion.getVideojuego().getListaSeguidores() ){
 			List<String> body = new ArrayList<>();
 			body.add(publicacion.getVideojuego().getNombreVideoJuego());
-			body.add(cUser.getNombreUsuario());
+			body.add(publicacion.getTitulo());
 			body.add(cUser.getCorreo());
 			
 			HttpEntity<List> entity = new HttpEntity<>(body, header);

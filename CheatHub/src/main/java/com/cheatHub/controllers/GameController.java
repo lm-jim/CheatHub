@@ -3,6 +3,8 @@ package com.cheatHub.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -90,8 +92,11 @@ public class GameController {
 	
 	@RequestMapping("/seguirVideojuego/{videojuego}")
 	public String seguirVideojuego(Model model, @PathVariable String videojuego) {
-		//USUARIO DE PRUEBA
-		Usuario user = servicioUsuario.getUsuarioByUsername("UsuarioPrueba1");
+
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails uloggeado = (UserDetails) principal;
+        Usuario user=servicioUsuario.getUsuarioByUsername(uloggeado.getUsername());
+        
 		Videojuego juego = servicioVideojuego.getVideojuegoPorNombre(videojuego);
 		
 		if(user.getListaJuegosSeguidos().contains(juego)) {
