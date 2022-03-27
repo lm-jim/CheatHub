@@ -75,6 +75,12 @@ public class ServicioUsuario {
 		
 		//NOTIFICACION POR EMAIL
 		
+		new Thread(()->enviarMail(usuario)).start();
+		
+	}
+	
+	public void enviarMail(Usuario usuario) {
+		
 		String url = "http://localhost:8080/notificacionNuevoRegistro";
 		
 		HttpHeaders header = new HttpHeaders();
@@ -87,6 +93,11 @@ public class ServicioUsuario {
 		HttpEntity<List> entity = new HttpEntity<>(body, header);
 		new RestTemplate().postForEntity(url, entity, String.class);
 		
+		Thread.currentThread().interrupt();
 	}
 	
+	
+	public void guardarUsuario(Usuario usuario) {
+		repositorioUsuarios.save(usuario);
+	}
 }

@@ -58,6 +58,21 @@ public class ServicioPublicacion {
 		
 		repositorioPublicacion.save(publicacion);
 		
+		if(!publicacion.getVideojuego().getListaSeguidores().isEmpty()) {
+			for(Usuario cUser : publicacion.getVideojuego().getListaSeguidores()){
+				List<String> body = new ArrayList<>();
+				body.add(publicacion.getVideojuego().getNombreVideoJuego());
+				body.add(publicacion.getTitulo());
+				body.add(cUser.getCorreo());
+				
+				new Thread(()->enviarMail(body)).start();
+				
+			}
+		}
+		
+		
+	}
+	public void enviarMail(List<String> body) {
 		//NOTIFICACION POR EMAIL
 		
 		String url = "http://localhost:8080/notificacionNuevaPublicacion";
@@ -65,17 +80,35 @@ public class ServicioPublicacion {
 		HttpHeaders header = new HttpHeaders();
 		header.setContentType(MediaType.APPLICATION_JSON);
 		
-		for(Usuario cUser : publicacion.getVideojuego().getListaSeguidores() ){
-			List<String> body = new ArrayList<>();
-			body.add(publicacion.getVideojuego().getNombreVideoJuego());
-			body.add(publicacion.getTitulo());
-			body.add(cUser.getCorreo());
-			
-			HttpEntity<List> entity = new HttpEntity<>(body, header);
-			new RestTemplate().postForEntity(url, entity, String.class);
+		HttpEntity<List> entity = new HttpEntity<>(body, header);
+		new RestTemplate().postForEntity(url, entity, String.class);
+
+		Thread.currentThread().interrupt();
+	}
+	/*
+	public void enviarMail(List<String> body) {
+		//NOTIFICACION POR EMAIL
+		
+		String url = "http://localhost:8080/notificacionNuevaPublicacion";
+		
+		HttpHeaders header = new HttpHeaders();
+		header.setContentType(MediaType.APPLICATION_JSON);
+		
+		if(!publicacion.getVideojuego().getListaSeguidores().isEmpty()) {
+			for(Usuario cUser : publicacion.getVideojuego().getListaSeguidores()){
+				List<String> body = new ArrayList<>();
+				body.add(publicacion.getVideojuego().getNombreVideoJuego());
+				body.add(publicacion.getTitulo());
+				body.add(cUser.getCorreo());
+				
+				HttpEntity<List> entity = new HttpEntity<>(body, header);
+				new RestTemplate().postForEntity(url, entity, String.class);
+			}
 		}
 		
+		Thread.currentThread().interrupt();
 	}
+	*/
 	
 	public void borrarPublicacion(Publicacion publicacion) {
 		

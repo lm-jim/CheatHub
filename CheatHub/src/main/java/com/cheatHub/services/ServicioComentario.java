@@ -32,7 +32,11 @@ public class ServicioComentario {
 		repositorioComentario.save(comentario);
 		
 		//NOTIFICACION POR EMAIL
+		new Thread(()->enviarMail(comentario)).start();
 		
+	}
+	
+	public void enviarMail(Comentario comentario) {
 		String url = "http://localhost:8080/notificacionNuevoComentario";
 		
 		HttpHeaders header = new HttpHeaders();
@@ -46,5 +50,7 @@ public class ServicioComentario {
 		
 		HttpEntity<List> entity = new HttpEntity<>(body, header);
 		new RestTemplate().postForEntity(url, entity, String.class);
+		
+		Thread.currentThread().interrupt();
 	}
 }

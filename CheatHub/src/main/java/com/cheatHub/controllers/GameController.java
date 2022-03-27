@@ -39,13 +39,21 @@ public class GameController {
 	public String greetingjuego(Model model, @PathVariable String videojuego) {
 		model.addAttribute("fill", videojuego);
 		
-		Usuario user = servicioUsuario.getUsuarioByUsername("UsuarioPrueba1");
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
 		Videojuego juego = servicioVideojuego.getVideojuegoPorNombre(videojuego);
 		
-		if(user.getListaJuegosSeguidos().contains(juego))
-			model.addAttribute("textoBotonSeguir", "Dejar de seguir");
+		if(!principal.toString().equals("anonymousUser")) {
+			UserDetails uloggeado = (UserDetails) principal;
+			Usuario user = servicioUsuario.getUsuarioByUsername(uloggeado.getUsername());
+			if(user.getListaJuegosSeguidos().contains(juego))
+				model.addAttribute("textoBotonSeguir", "Dejar de seguir");
+			else
+				model.addAttribute("textoBotonSeguir", "Seguir");
+		}
 		else
 			model.addAttribute("textoBotonSeguir", "Seguir");
+		
 		
 		List<Publicacion> publicaciones = servicioPublicacion.getPublicacionPorVideojuego(juego);
 		
@@ -109,7 +117,7 @@ public class GameController {
 			juego.addSeguidor(user);
 		}
 		
-		servicioUsuario.registrarUsuario(user);
+		servicioUsuario.guardarUsuario(user);
 		servicioVideojuego.guardarVideojuego(juego);
 		
 		model.addAttribute("fill", videojuego);
