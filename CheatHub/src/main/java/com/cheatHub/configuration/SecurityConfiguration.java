@@ -52,7 +52,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		// Private pages (all other pages)
 		http.authorizeRequests().anyRequest().authenticated();
-		//http.authorizeRequests().anyRequest().hasAnyRole("USER");
 		
 		// Login form
 		http.formLogin().loginPage("/login");

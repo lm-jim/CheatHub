@@ -76,7 +76,7 @@ public class CheatHubApplication {
 		repositorioVideojuegos.save(vCrabGame);
 		repositorioVideojuegos.save(vFornite);
 		
-		Usuario user = new Usuario("Sirio120","12345","", "Luismi", "Me gustan las estrellas", new Date(), "http://skyandtelescope.org/wp-content/uploads/Sirius-B-Fabio-v2.jpg");
+		Usuario user = new Usuario("Sirio120","12345","luismigueljimenezaliaga1999@gmail.com", "Luismi", "Me gustan las estrellas", new Date(), "http://skyandtelescope.org/wp-content/uploads/Sirius-B-Fabio-v2.jpg");
 		Usuario userJ = new Usuario("Juanmita_","abcd","juanmanetflix2020@gmail.com", "Juanma", "Me gusta Naruto", new Date(), "https://studiosol-a.akamaihd.net/uploadfile/letras/fotos/2/5/7/4/2574f9070ce48b988fe2693a60c40427.jpg");
 		Usuario userV = new Usuario("ViRo","qwerty","","Ismael","Me gusta Star Wars",new Date(),"https://www.xtrafondos.com/descargar.php?id=5495&vertical=1.jpg");
 		

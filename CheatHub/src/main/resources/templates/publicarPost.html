@@ -41,7 +41,8 @@
 		
 	</form>
 	
-	<form method='post' action = "nuevoVideojuego">
+	<form method='POST' action = "nuevoVideojuego">
+		<input type ="hidden" name="_csrf" value={{token}} />
 		<input type = 'submit' name = 'nuevoJuego' value='Añadir Juego'/>
 	</form>
 	

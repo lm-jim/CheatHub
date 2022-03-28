@@ -33,17 +33,6 @@ public class UserController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-
-	/*@GetMapping("/iniciarSesion")
-	public String login(Model model, HttpServletRequest request) {
-		
-		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-		model.addAttribute("token", token.getToken()); 
-		
-		return "login";
-	}
-	*/
-
 	@GetMapping("/newAccount")
 	public String newAccount(Model model) {
 			model.addAttribute("valorBoton","Crear Usuario");

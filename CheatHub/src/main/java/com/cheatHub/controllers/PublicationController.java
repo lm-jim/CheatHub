@@ -158,15 +158,9 @@ public class PublicationController {
 		
 		if(uloggeado.getUsername().equals(publi.getUsername().getNombreUsuario())) {
 			
-			System.out.println("-----------------TRUE");
 			servicioPublicacion.borrarPublicacion(publi);
 			
-			
-			List<Categoria> categorias = servicioCategoria.getAll();
-			List<Videojuego> juegos = servicioVideojuego.getAll();
-			model.addAttribute("videojuegos",juegos);
-			model.addAttribute("categorias",categorias);
-			return "index";
+			return "redirect:/";
 		}
 		else {
 			return "redirect:/publicacion/"+publi.getPublicacion();
