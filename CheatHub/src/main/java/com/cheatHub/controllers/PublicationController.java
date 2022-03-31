@@ -15,12 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.cheatHub.entities.Categoria;
+
 import com.cheatHub.entities.Comentario;
 import com.cheatHub.entities.Publicacion;
 import com.cheatHub.entities.Usuario;
 import com.cheatHub.entities.Videojuego;
-import com.cheatHub.services.ServicioCategoria;
 import com.cheatHub.services.ServicioComentario;
 import com.cheatHub.services.ServicioPublicacion;
 import com.cheatHub.services.ServicioUsuario;
@@ -38,8 +37,7 @@ public class PublicationController {
 	private ServicioUsuario servicioUsuario;
 	@Autowired
 	private ServicioComentario servicioComentario;
-	@Autowired
-	private ServicioCategoria servicioCategoria;
+
 
 
 	

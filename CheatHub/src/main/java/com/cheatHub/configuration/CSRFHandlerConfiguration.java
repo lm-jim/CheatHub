@@ -5,8 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.web.csrf.CsrfToken;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

@@ -1,11 +1,9 @@
 package com.cheatHub.services;
 
-import java.net.URI;
-import java.net.URISyntaxException;
+
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.cheatHub.entities.Usuario;
 import com.cheatHub.repositories.RepositorioUsuario;
-import com.fasterxml.jackson.databind.ser.std.ArraySerializerBase;
+
 
 @Service
 public class ServicioUsuario {
@@ -74,8 +72,10 @@ public class ServicioUsuario {
 		repositorioUsuarios.save(usuario);
 		
 		//NOTIFICACION POR EMAIL
+		if(usuario.getCorreo()!="") {
+			new Thread(()->enviarMail(usuario)).start();
+		}
 		
-		new Thread(()->enviarMail(usuario)).start();
 		
 	}
 	
