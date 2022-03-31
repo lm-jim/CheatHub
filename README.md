@@ -46,6 +46,7 @@ CheatHub es una página web colaborativa dónde podrás encontrar trucos de tus 
 ![alt text](https://github.com/lm-jim/CheatHub/blob/main/CheatHub/diagramas/diagrama_ER.PNG)
 ### Diagrama de Clases
 ![alt text](https://github.com/lm-jim/CheatHub/blob/main/CheatHub/diagramas/CheatHubUML.png)
+![alt text](https://github.com/lm-jim/CheatHub/blob/main/CheatHub/diagramas/pos_diagrama.drawio_1.png)
 ### Diagrama de Flujo web
 ![alt text](https://github.com/lm-jim/CheatHub/blob/main/CheatHub/diagramas/diagramaFlujo.png)
 
