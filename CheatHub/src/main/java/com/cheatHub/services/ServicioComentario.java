@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,6 +19,7 @@ import com.cheatHub.entities.Comentario;
 import com.cheatHub.repositories.RepositorioComentario;
 
 
+@EnableAsync
 @Service
 public class ServicioComentario {
 	@Autowired
@@ -32,12 +35,13 @@ public class ServicioComentario {
 		repositorioComentario.save(comentario);
 		
 		//NOTIFICACION POR EMAIL
-		new Thread(()->enviarMail(comentario)).start();
+		enviarMail(comentario);
 		
 	}
 	
+	@Async
 	public void enviarMail(Comentario comentario) {
-		String url = "http://localhost:8080/notificacionNuevoComentario";
+		String url = "http://localhost:8080/email-new-comment";
 		
 		HttpHeaders header = new HttpHeaders();
 		header.setContentType(MediaType.APPLICATION_JSON);
@@ -51,6 +55,6 @@ public class ServicioComentario {
 		HttpEntity<List> entity = new HttpEntity<>(body, header);
 		new RestTemplate().postForEntity(url, entity, String.class);
 		
-		Thread.currentThread().interrupt();
+		//Thread.currentThread().interrupt();
 	}
 }

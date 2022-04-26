@@ -9,6 +9,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,6 +22,7 @@ import com.cheatHub.repositories.RepositorioPublicacion;
 
 
 @Service
+@EnableAsync
 public class ServicioPublicacion {
 	
 	@Autowired
@@ -65,17 +68,20 @@ public class ServicioPublicacion {
 				body.add(publicacion.getTitulo());
 				body.add(cUser.getCorreo());
 				
-				new Thread(()->enviarMail(body)).start();
+				//new Thread(()->enviarMail(body)).start();
+				enviarMail(body);
 				
 			}
 		}
 		
 		
 	}
+	
+	@Async
 	public void enviarMail(List<String> body) {
 		//NOTIFICACION POR EMAIL
 		
-		String url = "http://localhost:8080/notificacionNuevaPublicacion";
+		String url = "http://localhost:8080/email-new-publication";
 		
 		HttpHeaders header = new HttpHeaders();
 		header.setContentType(MediaType.APPLICATION_JSON);
@@ -83,7 +89,7 @@ public class ServicioPublicacion {
 		HttpEntity<List> entity = new HttpEntity<>(body, header);
 		new RestTemplate().postForEntity(url, entity, String.class);
 
-		Thread.currentThread().interrupt();
+		//Thread.currentThread().interrupt();
 	}
 	/*
 	public void enviarMail(List<String> body) {

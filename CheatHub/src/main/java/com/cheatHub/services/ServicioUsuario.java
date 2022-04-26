@@ -13,6 +13,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,7 @@ import com.cheatHub.repositories.RepositorioUsuario;
 
 
 @Service
+@EnableAsync
 public class ServicioUsuario {
 	
 	@Bean
@@ -73,15 +76,17 @@ public class ServicioUsuario {
 		
 		//NOTIFICACION POR EMAIL
 		if(usuario.getCorreo()!="") {
-			new Thread(()->enviarMail(usuario)).start();
+			//new Thread(()->enviarMail(usuario)).start();
+			enviarMail(usuario);
 		}
 		
 		
 	}
 	
+	@Async
 	public void enviarMail(Usuario usuario) {
 		
-		String url = "http://localhost:8080/notificacionNuevoRegistro";
+		String url = "http://localhost:8080/email-new-sing-up";
 		
 		HttpHeaders header = new HttpHeaders();
 		header.setContentType(MediaType.APPLICATION_JSON);
@@ -93,7 +98,7 @@ public class ServicioUsuario {
 		HttpEntity<List> entity = new HttpEntity<>(body, header);
 		new RestTemplate().postForEntity(url, entity, String.class);
 		
-		Thread.currentThread().interrupt();
+		//Thread.currentThread().interrupt();
 	}
 	
 	
