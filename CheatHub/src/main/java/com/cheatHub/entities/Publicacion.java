@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -47,6 +48,14 @@ public class Publicacion {
 		this.videojuego = videojuego;
 		this.listaComentarios= new ArrayList<>();
 		this.fechaPublicacion = new Date();
+	}
+
+	public int getIdPublicacion() {
+		return idPublicacion;
+	}
+
+	public void setIdPublicacion(int idPublicacion) {
+		this.idPublicacion = idPublicacion;
 	}
 
 	public int getPublicacion() {
@@ -138,6 +147,25 @@ public class Publicacion {
 	public String toString() {
 		return titulo;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(idPublicacion);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Publicacion other = (Publicacion) obj;
+		return idPublicacion == other.idPublicacion;
+	}
+	
+	
 	
 	
 	

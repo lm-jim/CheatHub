@@ -47,7 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/category/**").permitAll();
 		http.authorizeRequests().antMatchers("/publicacion/**").permitAll();
 		http.authorizeRequests().antMatchers("/user/**").permitAll();
-		
+		http.authorizeRequests().antMatchers("/cache").permitAll();
 		// /* significando cualquier ruta
 
 		// Private pages (all other pages)

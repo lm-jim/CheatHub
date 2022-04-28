@@ -58,7 +58,7 @@ public class ServicioPublicacion {
 	}
 	
 	public void guardarPublicacion(Publicacion publicacion) {
-		
+			
 		repositorioPublicacion.save(publicacion);
 		
 		if(!publicacion.getVideojuego().getListaSeguidores().isEmpty()) {

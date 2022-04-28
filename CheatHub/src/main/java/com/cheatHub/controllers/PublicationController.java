@@ -149,6 +149,7 @@ public class PublicationController {
 	
 	@RequestMapping("/editarPublicacion")
 	public String editarPublicacion(Model model,@RequestParam String boton){
+		
 		Publicacion publi=servicioPublicacion.getPublicacionPorId(Integer.parseInt(boton));
 		
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
