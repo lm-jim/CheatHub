@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,8 @@ import com.cheatHub.repositories.RepositorioPublicacion;
 @Service
 @EnableAsync
 public class ServicioPublicacion {
+	@Value("${SERVICIO_INTERNO_NAME}")
+    String SERVICIO_INTERNO_NAME;
 	
 	@Autowired
 	private RepositorioPublicacion repositorioPublicacion;
@@ -81,7 +84,7 @@ public class ServicioPublicacion {
 	public void enviarMail(List<String> body) {
 		//NOTIFICACION POR EMAIL
 		
-		String url = "http://localhost:8080/email-new-publication";
+		String url = "http://"+SERVICIO_INTERNO_NAME+":8080/email-new-publication";
 		
 		HttpHeaders header = new HttpHeaders();
 		header.setContentType(MediaType.APPLICATION_JSON);

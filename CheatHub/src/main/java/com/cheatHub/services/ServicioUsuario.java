@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -28,6 +29,8 @@ import com.cheatHub.repositories.RepositorioUsuario;
 @Service
 @EnableAsync
 public class ServicioUsuario {
+	@Value("${SERVICIO_INTERNO_NAME}")
+    String SERVICIO_INTERNO_NAME;
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -86,7 +89,7 @@ public class ServicioUsuario {
 	@Async
 	public void enviarMail(Usuario usuario) {
 		
-		String url = "http://localhost:8080/email-new-sing-up";
+		String url = "http://"+SERVICIO_INTERNO_NAME+":8080/email-new-sing-up";
 		
 		HttpHeaders header = new HttpHeaders();
 		header.setContentType(MediaType.APPLICATION_JSON);
