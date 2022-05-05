@@ -2,6 +2,7 @@ package com.cheatHub.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -96,6 +97,23 @@ public class Videojuego {
 	@Override
 	public String toString() {
 		return nombreVideojuego;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(nombreVideojuego);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Videojuego other = (Videojuego) obj;
+		return Objects.equals(nombreVideojuego, other.nombreVideojuego);
 	}
 	
 	

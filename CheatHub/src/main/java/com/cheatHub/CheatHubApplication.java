@@ -1,5 +1,7 @@
 package com.cheatHub;
 
+
+
 import java.util.Date;
 
 import javax.annotation.PostConstruct;
@@ -14,13 +16,24 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 
+
+import com.cheatHub.configuration.HazelcastConfiguration;
 import com.cheatHub.entities.*;
 import com.cheatHub.repositories.*;
 import com.cheatHub.services.ServicioUsuario;
 
+
+
+
 @EnableCaching
 @SpringBootApplication
 public class CheatHubApplication {
+	
+	
+	@Autowired
+	HazelcastConfiguration hazelcast;
+	 
+	
 	
 	@Autowired
 	RepositorioCategoria repositorioCategorias;
@@ -51,7 +64,9 @@ public class CheatHubApplication {
 	   LOG.info("Activating cache...");
 	   return new ConcurrentMapCacheManager("publicacion");
 	 }
-	
+	 
+	 
+	 
 	@PostConstruct
 	public void init()
 	{
@@ -172,5 +187,7 @@ public class CheatHubApplication {
 		repositorioComentarios.save(coment12);
 		
 	}
+	
+	
 
 }

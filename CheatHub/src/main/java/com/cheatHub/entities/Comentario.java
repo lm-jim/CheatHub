@@ -1,4 +1,6 @@
 package com.cheatHub.entities;
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -64,6 +66,23 @@ public class Comentario {
 	@Override
 	public String toString() {
 		return contenidoComentario;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(idComentario, publicacion);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Comentario other = (Comentario) obj;
+		return idComentario == other.idComentario && Objects.equals(publicacion, other.publicacion);
 	}
 	
 	
