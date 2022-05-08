@@ -29,6 +29,7 @@ import com.cheatHub.repositories.RepositorioUsuario;
 @Service
 @EnableAsync
 public class ServicioUsuario {
+	
 	@Value("${SERVICIO_INTERNO_NAME}")
     String SERVICIO_INTERNO_NAME;
 	
@@ -90,7 +91,7 @@ public class ServicioUsuario {
 	public void enviarMail(Usuario usuario) {
 		
 		String url = "http://"+SERVICIO_INTERNO_NAME+":8080/email-new-sing-up";
-		
+		//String url = "http://localhost:8080/email-new-sing-up";
 		HttpHeaders header = new HttpHeaders();
 		header.setContentType(MediaType.APPLICATION_JSON);
 		

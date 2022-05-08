@@ -1,15 +1,26 @@
 version: "3"
 services:
-    app:
+    app-1:
         build:
             context: ./CheatHub
             dockerfile: Dockerfile
-        container_name: 'app-cheathub'
+        container_name: 'app-1'
         restart: "on-failure"
         expose: 
             - "8443"
-        ports: 
-            - 8443:8443
+        environment:
+            - SERVICIO_INTERNO_NAME=intserv
+        depends_on: 
+            - intserv
+    app-2:
+        build:
+            context: ./CheatHub
+            dockerfile: Dockerfile
+        container_name: 'app-2'
+        restart: "on-failure"
+        expose: 
+            - "8443"
+        
         environment:
             - SERVICIO_INTERNO_NAME=intserv
         depends_on: 
@@ -22,4 +33,19 @@ services:
         restart: "on-failure"
         expose: 
             - "8080" 
+            
+    balanceador:
+        build:
+            context: ./haproxy
+            dockerfile: Dockerfile
+        container_name: 'balanceador-cheathub'
+           
+        ports: 
+            - "80:80"
+            - "443:443"
+            - "8404:8404"
+        restart: "on-failure"
+        depends_on: 
+            - app-1
+            - app-2
        

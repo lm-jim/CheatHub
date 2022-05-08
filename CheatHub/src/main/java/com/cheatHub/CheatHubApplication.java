@@ -15,7 +15,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
-
+import org.springframework.session.hazelcast.config.annotation.web.http.EnableHazelcastHttpSession;
 
 import com.cheatHub.configuration.HazelcastConfiguration;
 import com.cheatHub.entities.*;
@@ -26,6 +26,7 @@ import com.cheatHub.services.ServicioUsuario;
 
 
 @EnableCaching
+@EnableHazelcastHttpSession
 @SpringBootApplication
 public class CheatHubApplication {
 	
@@ -66,7 +67,7 @@ public class CheatHubApplication {
 	 }
 	 
 	 
-	 
+	/*
 	@PostConstruct
 	public void init()
 	{
@@ -105,21 +106,14 @@ public class CheatHubApplication {
 		repositorioVideojuegos.save(vCrabGame);
 		repositorioVideojuegos.save(vFornite);
 		
-		Usuario user = new Usuario("Sirio120","12345","luismigueljimenezaliaga1999@gmail.com", "Luismi", "Me gustan las estrellas", new Date(), "http://skyandtelescope.org/wp-content/uploads/Sirius-B-Fabio-v2.jpg");
-		Usuario userJ = new Usuario("Juanmita_","abcd","juanmanetflix2020@gmail.com", "Juanma", "Me gusta Naruto", new Date(), "https://studiosol-a.akamaihd.net/uploadfile/letras/fotos/2/5/7/4/2574f9070ce48b988fe2693a60c40427.jpg");
+		Usuario user = new Usuario("Sirio120","12345","", "Luismi", "Me gustan las estrellas", new Date(), "http://skyandtelescope.org/wp-content/uploads/Sirius-B-Fabio-v2.jpg");
+		Usuario userJ = new Usuario("Juanmita_","abcd","", "Juanma", "Me gusta Naruto", new Date(), "https://studiosol-a.akamaihd.net/uploadfile/letras/fotos/2/5/7/4/2574f9070ce48b988fe2693a60c40427.jpg");
 		Usuario userV = new Usuario("ViRo","qwerty","","Ismael","Me gusta Star Wars",new Date(),"https://www.xtrafondos.com/descargar.php?id=5495&vertical=1.jpg");
 		
 		Usuario user1 = new Usuario("UsuarioPrueba1","pass1","");
 		Usuario user2 = new Usuario("UsuarioPrueba2","pass2","");
 		Usuario user3 = new Usuario("UsuarioPrueba3","pass3","");
-		/*
-		repositorioUsuarios.save(user);
-		repositorioUsuarios.save(userJ);
-		repositorioUsuarios.save(userV);
-		repositorioUsuarios.save(user1);
-		repositorioUsuarios.save(user2);
-		repositorioUsuarios.save(user3);
-		*/
+		
 		
 		servicioUsuarios.registrarUsuario(user);
 		servicioUsuarios.registrarUsuario(userJ);
@@ -187,7 +181,7 @@ public class CheatHubApplication {
 		repositorioComentarios.save(coment12);
 		
 	}
-	
+	*/
 	
 
 }

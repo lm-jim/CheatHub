@@ -39,14 +39,18 @@ public class ServicioComentario {
 		repositorioComentario.save(comentario);
 		
 		//NOTIFICACION POR EMAIL
-		enviarMail(comentario);
+		if(comentario.getPublicacion().getUsername().getCorreo()!="") {
+			enviarMail(comentario);
+		}
+		
+	
 		
 	}
 	
 	@Async
 	public void enviarMail(Comentario comentario) {
 		String url = "http://"+SERVICIO_INTERNO_NAME+":8080/email-new-comment";
-		
+		//String url = "http://localhost:8080/email-new-comment";
 		HttpHeaders header = new HttpHeaders();
 		header.setContentType(MediaType.APPLICATION_JSON);
 		
