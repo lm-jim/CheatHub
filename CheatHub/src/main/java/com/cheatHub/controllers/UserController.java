@@ -207,7 +207,7 @@ public class UserController {
 			
 			model.addAttribute("Publicaciones",u.getListaPublicaciones());
 			
-			servicioUsuarios.registrarUsuario(u);
+			servicioUsuarios.editarUsuario(u);
 			
 			return "redirect:/user/"+u.getNombreUsuario();
 		}

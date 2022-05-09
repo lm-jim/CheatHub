@@ -72,6 +72,9 @@ public class ServicioUsuario {
 		}
 	}
 	
+	public void editarUsuario(Usuario usuario) {
+		repositorioUsuarios.save(usuario);
+	}
 	
 	public void registrarUsuario(Usuario usuario) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
