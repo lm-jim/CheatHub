@@ -2,6 +2,10 @@
 
 CheatHub es una página web colaborativa dónde podrás encontrar trucos de tus videojuegos favoritos y buscar o reportar bugs.
 
+Vídeo explicativo:
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/IktruEFStls/0.jpg)](https://www.youtube.com/watch?v=IktruEFStls)
+
 ## FUNCIONALIDADES PÚBLICAS
 -	Buscar un videojuego según categoría o buscador.
 -	Ver publicaciones.
@@ -146,6 +150,9 @@ Por defecto será el siguiente: carpetaProyecto\target\nombre.jar
 - Primero tendremos que ejecutar el servicio interno con el comando: `java -jar nombreficheroServicioInterno.jar` Vemos que se esté ejecutando correctamente
 - Hacemos lo mismo con la aplicación principal.
 - Una vez corriendo ambos programas en la máquina virtual, abriremos un navegador en otra máquina y accederemos a la aplicación mediante la dirección (en nuestro caso) https://localhost:8443. Y navegamos por ella al gusto.
+
+## IMAGENES DOCKER
+La aplicación estará compuesta por varios Dockerfile: uno para la aplicación web, otro para el servicio interno y otro para el balanceador de carga. No será necesario un contenedor para la base de datos ya que es externa. Todas estas imágenes serán usadas por el fichero docker-compose para crear las instancias espeficadas.
 
 ## INTERFAZ DEL SERVICIO INTERNO
 Para conectar con el servicio interno usaremos el puerto 8080 y la variable de entorno SERVICIO_INTERNO_NAME, que será el nombre en la red interna creada por el docker compose del propio servicio interno. Pasaremos esta variable de entorno a cada una de las instancias de la aplicación.
