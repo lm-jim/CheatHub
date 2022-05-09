@@ -46,7 +46,8 @@ CheatHub es una página web colaborativa dónde podrás encontrar trucos de tus 
 ![alt text](https://github.com/lm-jim/CheatHub/blob/main/CheatHub/diagramas/diagrama_ER.PNG)
 ### Diagrama de Clases
 ![alt text](https://github.com/lm-jim/CheatHub/blob/main/CheatHub/diagramas/CheatHubUML.png)
-![alt text](https://github.com/lm-jim/CheatHub/blob/main/CheatHub/diagramas/pos_diagrama.drawio_1.png)
+![alt text](https://github.com/lm-jim/CheatHub/blob/main/CheatHub/diagramas/diragrama%20clases.png?raw=true)
+(Diagrama actualizado a la fase 4)
 ### Diagrama de Flujo web
 ![alt text](https://github.com/lm-jim/CheatHub/blob/main/CheatHub/diagramas/diagramaFlujo.png)
 
@@ -145,3 +146,10 @@ Por defecto será el siguiente: carpetaProyecto\target\nombre.jar
 - Primero tendremos que ejecutar el servicio interno con el comando: `java -jar nombreficheroServicioInterno.jar` Vemos que se esté ejecutando correctamente
 - Hacemos lo mismo con la aplicación principal.
 - Una vez corriendo ambos programas en la máquina virtual, abriremos un navegador en otra máquina y accederemos a la aplicación mediante la dirección (en nuestro caso) https://localhost:8443. Y navegamos por ella al gusto.
+
+## INTERFAZ DEL SERVICIO INTERNO
+Para conectar con el servicio interno usaremos el puerto 8080 y la variable de entorno SERVICIO_INTERNO_NAME, que será el nombre en la red interna creada por el docker compose del propio servicio interno. Pasaremos esta variable de entorno a cada una de las instancias de la aplicación.
+
+## DIAGRAMA DE INFRAESTRUCTURA
+![alt text](https://github.com/lm-jim/CheatHub/blob/main/CheatHub/diagramas/diagrama%20infraestructura.png?raw=true)
+
